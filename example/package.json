@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "test": "mocha --reporter spec index.js --require babel-polyfill --compilers js:babel-register"
+  },
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "spy": "^0.1.3",
+    "ya-done": "^0.2.0"
+  }
+}

@@ -2,7 +2,7 @@
 
   **Ready to use yadda - selenium-webdriver - chai framework**
 
-```
+```js
 npm i ya-done --save
 ```
 
@@ -17,6 +17,8 @@ to productively build test projects for web projects using JavaScript.
 - Pre-configured  _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
 
 ### Example use
+
+Using the example project provided.
 
 **sample project structure**
 ```
@@ -76,4 +78,10 @@ const runTests = () => yaddaLibrary()
     }
   );
 export default runTests();
+```
+
+**install and run the project**
+```js
+npm i
+npm test
 ```
