@@ -1,0 +1,27 @@
+{
+  "name": "framework",
+  "version": "0.1.0",
+  "description": "Ready to use yadda - selenium-webdriver - chai framework",
+  "repository": "https://github.com/ConnectedHomes/ya-ddone",
+  "author": "Darren Corbett",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha --recursive --require babel-polyfill --compilers js:babel-register"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chai-webdriver": "^1.2.0",
+    "chromedriver": "^2.25.1",
+    "mocha": "^3.1.2",
+    "selenium-webdriver": "^3.0.1",
+    "spy": "^0.1.3",
+    "yadda": "^0.22.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0"
+  }
+}
