@@ -2,7 +2,7 @@
   "name": "ya-done",
   "version": "0.1.5",
   "description": "Ready to use yadda - selenium-webdriver - chai framework",
-  "repository": "https://github.com/britishgas-engineering/ya-ddone",
+  "repository": "https://github.com/britishgas-engineering/ya-done",
   "author": "Darren Corbett",
   "license": "MIT",
   "main": "dist/index.js",
