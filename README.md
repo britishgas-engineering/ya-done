@@ -1,6 +1,9 @@
 # ya-done
 
-  **Ready to use yadda - selenium-webdriver - chai framework**
+
+  **Ready to use yadda - selenium-webdriver - chai framework**  
+
+[![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
 ```js
 npm i ya-done --save
