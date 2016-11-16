@@ -6,10 +6,14 @@
 npm i ya-done --save
 ```
 
-At British Gas 'yadda' has enabled our developers to utilise BDD to within our ember applications.
+The aim of this package is to build a simple configuration for 'yadda' to enable
+QA test engineers to productively build test projects for web projects using
+JavaScript.
 
-The aim of this package is to build a simple configuration for 'yadda' to enable QA test engineers
-to productively build test projects for web projects using JavaScript.
+ya-done configures 'yadda' with chai with 'selenium-webdriver'. 'yadda' has been
+created with two context properties.  'selenium-webdriver' can be accessed via
+the property 'driver' additionally a property of 'ctx', type object, has been
+added to allow the passing of data between steps.
 
 ### Technologies Used
 
