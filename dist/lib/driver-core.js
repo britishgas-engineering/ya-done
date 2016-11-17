@@ -8,10 +8,9 @@ function innerDriverCore() {
   .build();
 
   chai.use(chaiWebdriver(driver));
+  driver.By = sw.By;
+  driver.until = sw.until;
   return driver;
 }
-
-innerDriverCore.By = sw.By;
-innerDriverCore.until = sw.until;
 
 module.exports = innerDriverCore;
