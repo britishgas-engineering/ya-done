@@ -11,4 +11,7 @@ function innerDriverCore() {
   return driver;
 }
 
+innerDriverCore.By = sw.By;
+innerDriverCore.until = sw.until;
+
 module.exports = innerDriverCore;
