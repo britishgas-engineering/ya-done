@@ -1,14 +1,10 @@
-const sw = require('selenium-webdriver');
-const chai = require('chai');
-const chaiWebdriver = require('chai-webdriver');
+const frameworkBuilder = require('./framework-builder');
 
-function innerDriverCore() {
-  const driver = new sw.Builder()
-  .withCapabilities(sw.Capabilities.chrome())
-  .build();
-
-  chai.use(chaiWebdriver(driver));
-  return driver;
+function innerDriverCore(framework) {
+  if (framework === undefined || framework === null) {
+    return frameworkBuilder.defaultDriver();
+  }
+  return frameworkBuilder.get(framework);
 }
 
 module.exports = innerDriverCore;

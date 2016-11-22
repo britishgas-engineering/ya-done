@@ -2,7 +2,7 @@
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
 
-function buildYadda(library) {
+function buildYadda(library, framework) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
@@ -19,7 +19,7 @@ function buildYadda(library) {
           library,
           {
             ctx: {},
-            driver: buildDriver(),
+            driver: buildDriver(framework),
           }
         );
 
