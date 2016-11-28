@@ -4,6 +4,7 @@ const chai = require('chai');
 const chaiWebdriver = require('chai-webdriver');
 
 const PHANTOM_FRAMEWORK = 'phantomjs';
+const CHROMEDRIVER = 'chromedriver';
 
 function baseDriver(capabilities) {
   return new webdriver.Builder()
@@ -27,16 +28,20 @@ function buildPhantom() {
   return baseDriver(capabilities);
 }
 
+function defaultDriver() {
+  const driver = baseDriver();
+  chai.use(chaiWebdriver(driver));
+  return driver;
+}
+
 const frameworks = {
-  defaultDriver() {
-    const driver = baseDriver();
-    chai.use(chaiWebdriver(driver));
-    return driver;
-  },
   get(framework) {
-    return framework === PHANTOM_FRAMEWORK ?
-      buildPhantom() :
-      this.defaultDriver()
+    const baseDriverBuilt = framework === PHANTOM_FRAMEWORK ?
+    buildPhantom() :
+    defaultDriver();
+
+    baseDriverBuilt.framework = framework || CHROMEDRIVER;
+    return baseDriverBuilt;
   },
 };
 

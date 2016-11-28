@@ -1,10 +1,10 @@
 const frameworkBuilder = require('./framework-builder');
 
 function innerDriverCore(framework) {
-  if (framework === undefined || framework === null) {
-    return frameworkBuilder.defaultDriver();
-  }
-  return frameworkBuilder.get(framework);
+  const frameworkType = (typeof framework === 'object' && !Array.isArray(framework)) ?
+    framework.framework :
+    framework;
+  return frameworkBuilder.get(frameworkType);
 }
 
 module.exports = innerDriverCore;
