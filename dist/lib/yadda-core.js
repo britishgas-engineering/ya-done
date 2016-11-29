@@ -4,15 +4,21 @@ const buildDriver = require('./driver-core');
 
 function defineWindowInLibrary(library) {
   library.define(
-      'a web browser',
-      function setWindowSize(done) {
-        this.driver
-        .manage()
-        .window()
-        .setSize(this.width, this.height)
-        .then(done());
-      }
-    );
+    'a web browser',
+    function setWindowSize(done) {
+      this.driver
+      .manage()
+      .window()
+      .setSize(this.width, this.height)
+      .then(() => done());
+    }
+  )
+  .define(
+    'end the test',
+    function endTest() {
+      this.driver.quit();
+    }
+  );
   return library;
 }
 
@@ -22,7 +28,7 @@ function buildYadda(library, framework) {
   }
   Yadda.plugins.mocha.StepLevelPlugin.init();
   const features = new Yadda.FeatureFileSearch('features');
-  const builtLibrary = defineWindowInLibrary(library, framework);
+  const builtLibrary = defineWindowInLibrary(library);
   return features
   .each(
     file => featureFile(
@@ -34,11 +40,11 @@ function buildYadda(library, framework) {
             ctx: {},
             driver: buildDriver(framework),
             width: framework && framework.size ?
-             framework.size.width :
-             1024,
+            framework.size.width :
+            1024,
             height: framework && framework.size ?
-             framework.size.height :
-             728,
+            framework.size.height :
+            728,
           }
         );
 
