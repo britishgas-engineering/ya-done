@@ -2,12 +2,6 @@ import { expect } from 'chai';
 import { yaddaLibrary } from 'ya-done';
 
 const runTests = () => yaddaLibrary()
-  .given(
-    'a web browser',
-    (next) => {
-      next();
-    }
-  )
   .when(
     'the browser navigates to github',
     function loadGithub(next) {
