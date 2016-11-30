@@ -11,7 +11,7 @@ The aim of this package is to build a simple configuration for 'yadda' to enable
 
 ya-done configures 'yadda' with chai with 'selenium-webdriver'. 'yadda' has been created with two context properties.  'selenium-webdriver' can be accessed via the property 'driver' additionally a property of 'ctx', type object, has been added to allow the passing of data between steps.
 
-ya-done allows testing with either chomedriver or phantomjs.  When using phantomjs chai-webdriver is not configured as a 'dom' is not available. To enable phantomjs pass the string 'phantomjs' with the steps library to yaddaCore. Additional frameworks may be configured in later versions.
+ya-done allows testing with either chomedriver or phantomjs.  When using phantomjs chai-webdriver is not configured as a 'dom' is not available. Additional frameworks may be configured in later versions.
 
 ### Technologies Used
 - Pre-configured  _[yadda](https://github.com/acuminous/yadda)_
@@ -26,7 +26,7 @@ ya-done has preconfigured "set-up" and "tear down" steps.
 These steps are added to the yadda library by default and are used in the example project and seen below.
 
 ### Configuration
-ya-done exposes "yaddaCore" which requires a step library to run.  Additionally the web-browser to be used for testing can be passed. This can be passed in as either a string or configuration object. Currently ya-done only supports chromedriver and phantomjs. When using a configuration object the window size can also be set, more configuration option may become available as issues are found from use.
+ya-done exposes "yaddaCore" which requires a step library to run.  The web-browser to be used for testing can be defined by either a string or configuration object. When using a configuration object the window size can also be set, more configuration option may become available as issues are found or raised.
 
 ```js
 import { yaddaCore } from 'ya-done';
@@ -85,12 +85,6 @@ Feature: ya-done example
 import { yaddaLibrary } from 'ya-done';
 
 const runTests = () => yaddaLibrary()
-  .given(
-    'a web browser',
-    (next) => {
-      next();
-    }
-  )
   .when(
     'the browser navigates to github',
     function loadGithub(next) {
