@@ -43,4 +43,26 @@ describe('driver-core :', () => {
       );
     }
   );
+
+  describe(
+    'framework is object framework prop is used',
+    () => {
+      driverCore = innerDriverCore(
+        {
+          capabilities: {
+            browserName: 'IE',
+            browser_version: '10.0',
+            os: 'Windows',
+            os_version: '8',
+            resolution: '1024x768',
+          },
+        }
+      );
+      should.equal(
+        driverCore.framework,
+        'browserstack',
+        'library should be configured for browserstack'
+      );
+    }
+  );
 });
