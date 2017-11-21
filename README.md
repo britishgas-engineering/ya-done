@@ -4,6 +4,8 @@
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
+### Version 0.9.* adds BrowserStack (Automating multiple browsers in parallel will be added in a further version)
+
 ```js
 npm i ya-done --save
 ```
@@ -17,6 +19,7 @@ ya-done allows testing with either chomedriver or phantomjs.  When using phantom
 - Pre-configured  _[yadda](https://github.com/acuminous/yadda)_
 - Pre-configured  _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
 - Pre-configured  _[phantomjs](http://phantomjs.org)_
+- _[BrowserStack](https://www.browserstack.com)_
 
 ### Default steps
 ya-done has preconfigured "set-up" and "tear down" steps.
@@ -25,8 +28,12 @@ ya-done has preconfigured "set-up" and "tear down" steps.
 
 These steps are added to the yadda library by default and are used in the example project and seen below.
 
-### Configuration
-ya-done exposes "yaddaCore" which requires a step library to run.  The web-browser to be used for testing can be defined by either a string or configuration object. When using a configuration object the window size can also be set, more configuration option may become available as issues are found or raised.
+ya-done exposes "yaddaCore" which requires a step library to run
+
+### Configuration _(standard)_
+
+The web-browser to be used for testing can be defined by either a string or configuration object.
+When using a configuration object the window size can also be set, more configuration option may become available as issues are found or raised.
 
 ```js
 import { yaddaCore } from 'ya-done';
@@ -45,6 +52,37 @@ yaddaCore(
     size: {
       width: 1024,
       height: 768,
+    },
+  }
+);
+```
+
+### Configuration _(browserstack)_
+
+For BrowserStack add a configuration object as the second parameter in yaddaCore.
+[Documentation for setting up the configuration object.](https://www.browserstack.com/automate/node)
+
+```js
+import { yaddaCore } from 'ya-done';
+import steps from './steps';
+/* configure */
+yaddaCore(steps);
+
+/* or configure */
+yaddaCore(steps, 'phantomjs');
+
+/* or configure */
+yaddaCore(
+  steps,
+  {
+    capabilities: {
+      browserName: 'Chrome', // other browsers available
+      browser_version: '62.0',
+      os: 'Windows',
+      os_version: '8',
+      resolution: '1024x768',
+      'browserstack.user': ${your_id},
+      'browserstack.key': ${your_pass},
     },
   }
 );
