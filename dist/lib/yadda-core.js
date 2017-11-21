@@ -6,7 +6,9 @@ function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
     library.define(
       'a web browser',
-      () => {}
+      function dontSetWindow(done) {
+        done();
+      }
     );
   } else {
     library.define(
