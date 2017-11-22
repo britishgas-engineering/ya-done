@@ -62,6 +62,8 @@ yaddaCore(
 For BrowserStack add a configuration object as the second parameter in yaddaCore.
 [Documentation for setting up the configuration object.](https://www.browserstack.com/automate/node)
 
+**Please note to run multiple tests (scenarios) the driver needs to be quit at the end of each scenario**
+
 ```js
 import { yaddaCore } from 'ya-done';
 import steps from './steps';
@@ -115,7 +117,7 @@ Feature: ya-done example
       Given a web browser
       When the browser navigates to github
       Then the headers should not be hello world
-      And end the test
+      And end the test #will quit the driver
 ```
 
 **index.js  (steps level)**
