@@ -1,13 +1,13 @@
 {
   "name": "ya-done",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Ready to use yadda - selenium-webdriver - chai framework",
   "repository": "https://github.com/britishgas-engineering/ya-done",
   "author": "Darren Corbett",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --recursive --require babel-polyfill --compilers js:babel-register"
+    "test": "mocha --recursive --require babel-polyfill --require babel-register"
   },
   "dependencies": {
     "chai": "^3.5.0",

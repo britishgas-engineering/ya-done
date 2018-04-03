@@ -17,10 +17,10 @@ function baseDriver(capabilities) {
 
 function buildPhantom() {
   const capabilities = webdriver.Capabilities.phantomjs;
-  capabilities.set(webdriver.Capability.ACCEPT_SSL_CERTS, true);
-  capabilities.set(webdriver.Capability.SECURE_SSL, false);
-  capabilities.set('phantomjs.binary.path', phantomjs);
-  capabilities.set(
+  capabilities: (webdriver.Capability.ACCEPT_SSL_CERTS, true);
+  capabilities: (webdriver.Capability.SECURE_SSL, false);
+  capabilities: ('phantomjs.binary.path', phantomjs);
+  capabilities: (
     'phantomjs.cli.args',
     ['--ignore-ssl-errors=true',
       '--ssl-protocol=any',
