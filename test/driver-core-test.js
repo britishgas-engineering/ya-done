@@ -31,7 +31,7 @@ describe('driver-core :', () => {
     should.equal(driverCore.framework, 'phantomjs', 'library should be configured for phantomjs');
   });
 
-	/*  describe('framework is object framework prop is used', () => {
+  describe('framework is object framework prop is used', () => {
     driverCore = innerDriverCore({
       capabilities: {
         browserName: 'IE',
@@ -46,5 +46,5 @@ describe('driver-core :', () => {
 			'browserstack',
 			'library should be configured for browserstack'
 		);
-  });*/
+  });
 });
