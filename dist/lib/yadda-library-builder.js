@@ -1,12 +1,21 @@
-const Yadda = require('yadda');
+'use strict';
 
-function buildLibrary() {
-  const dictionary = new Yadda.Dictionary()
-  .define(
-    'NUM', /(\d+)/
-  );
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-  return Yadda.localisation.English.library(dictionary);
-}
+var _yadda = require('yadda');
 
-module.exports = buildLibrary;
+var _yadda2 = _interopRequireDefault(_yadda);
+
+var _yaddaDictionaryBuilder = require('./yadda-dictionary-builder');
+
+var _yaddaDictionaryBuilder2 = _interopRequireDefault(_yaddaDictionaryBuilder);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (items) {
+  var builder = (0, _yaddaDictionaryBuilder2.default)();
+  var dictionary = builder(items);
+  return _yadda2.default.localisation.English.library(dictionary);
+};

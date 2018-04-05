@@ -1,60 +1,67 @@
-const webdriver = require('selenium-webdriver');
-const phantomjs = require('phantomjs-prebuilt').path;
-const chai = require('chai');
-const chaiWebdriver = require('chai-webdriver');
+'use strict';
 
-const PHANTOM_FRAMEWORK = 'phantomjs';
-const CHROMEDRIVER = 'chromedriver';
-const BROWSERSTACK = 'browserstack';
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _seleniumWebdriver = require('selenium-webdriver');
+
+var _seleniumWebdriver2 = _interopRequireDefault(_seleniumWebdriver);
+
+var _phantomjsPrebuilt = require('phantomjs-prebuilt');
+
+var _chai = require('chai');
+
+var _chai2 = _interopRequireDefault(_chai);
+
+var _chaiWebdriver = require('chai-webdriver');
+
+var _chaiWebdriver2 = _interopRequireDefault(_chaiWebdriver);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PHANTOM_FRAMEWORK = 'phantomjs';
+var CHROMEDRIVER = 'chromedriver';
+var BROWSERSTACK = 'browserstack';
 
 function baseDriver(capabilities) {
-  return new webdriver.Builder()
-		.withCapabilities(capabilities || webdriver.Capabilities.chrome())
-		.build();
+  return new _seleniumWebdriver2.default.Builder().withCapabilities(capabilities || _seleniumWebdriver2.default.Capabilities.chrome()).build();
 }
 
 function buildPhantom() {
-  const capabilities = webdriver.Capabilities.phantomjs();
-  capabilities[webdriver.Capability.ACCEPT_SSL_CERTS] = true;
-  capabilities[webdriver.Capability.SECURE_SSL] = false;
-  capabilities['phantomjs.binary.path'] = phantomjs;
-  capabilities['phantomjs.cli.args'] = [
-    '--ignore-ssl-errors=true',
-    '--ssl-protocol=any',
-    '--web-security=false',
-  ];
+  var capabilities = _seleniumWebdriver2.default.Capabilities.phantomjs();
+  capabilities[_seleniumWebdriver2.default.Capability.ACCEPT_SSL_CERTS] = true;
+  capabilities[_seleniumWebdriver2.default.Capability.SECURE_SSL] = false;
+  capabilities['phantomjs.binary.path'] = _phantomjsPrebuilt.path;
+  capabilities['phantomjs.cli.args'] = ['--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false'];
   return baseDriver(capabilities);
 }
 
 function defaultDriver() {
-  const driver = baseDriver();
-  chai.use(chaiWebdriver(driver));
+  var driver = baseDriver();
+  _chai2.default.use((0, _chaiWebdriver2.default)(driver));
   return driver;
 }
 
 function buildBrowserStack(framework) {
-  const driver = new webdriver.Builder()
-		.usingServer('http://hub-cloud.browserstack.com/wd/hub')
-		.withCapabilities(framework.capabilities)
-		.build();
+  var driver = new _seleniumWebdriver2.default.Builder().usingServer('http://hub-cloud.browserstack.com/wd/hub').withCapabilities(framework.capabilities).build();
   driver.framework = BROWSERSTACK;
   return driver;
 }
 
 function buildSimple(framework) {
-  const baseDriverBuilt = framework === PHANTOM_FRAMEWORK ? buildPhantom() : defaultDriver();
+  var baseDriverBuilt = framework === PHANTOM_FRAMEWORK ? buildPhantom() : defaultDriver();
 
   baseDriverBuilt.framework = framework || CHROMEDRIVER;
   return baseDriverBuilt;
 }
 
-const frameworks = {
-  get(framework) {
-    return buildSimple(framework);
-  },
-  getBrowserStack(framework) {
-    return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
-  },
+var get = function get(framework) {
+  return buildSimple(framework);
 };
 
-module.exports = frameworks;
+var getBrowserStack = function getBrowserStack(framework) {
+  return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
+};
+
+exports.default = { get: get, getBrowserStack: getBrowserStack };
