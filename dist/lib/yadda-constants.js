@@ -5,4 +5,9 @@ const TYPE_INTEGER = 'integer';
 const TYPE_FLOAT = 'float';
 const TYPE_JSON = 'json';
 
-export { REGEX_INT, REGEX_FLOAT, REGEX_JSON, TYPE_INTEGER, TYPE_FLOAT, TYPE_JSON };
+exports.REGEX_INT = REGEX_INT;
+exports.REGEX_FLOAT = REGEX_FLOAT;
+exports.REGEX_JSON = REGEX_JSON;
+exports.TYPE_INTEGER = TYPE_INTEGER;
+exports.TYPE_FLOAT = TYPE_FLOAT;
+exports.TYPE_JSON = TYPE_JSON;

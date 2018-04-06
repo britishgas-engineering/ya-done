@@ -1,5 +1,5 @@
-import Yadda from 'yadda';
-import * as constants from './yadda-constants';
+const Yadda = require('yadda');
+const constants = require('./yadda-constants');
 
 const { Dictionary, converters } = Yadda;
 const convertJson = (item, callback) => callback(null, JSON.parse(item));
