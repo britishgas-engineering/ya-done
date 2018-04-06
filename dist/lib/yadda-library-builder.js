@@ -1,11 +1,9 @@
 const Yadda = require('yadda');
+const dictionaryBuilder = require('./yadda-dictionary-builder');
 
-function buildLibrary() {
-  const dictionary = new Yadda.Dictionary()
-  .define(
-    'NUM', /(\d+)/
-  );
-
+function buildLibrary(items) {
+  const builder = dictionaryBuilder();
+  const dictionary = builder(items);
   return Yadda.localisation.English.library(dictionary);
 }
 
