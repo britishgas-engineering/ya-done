@@ -7,15 +7,17 @@
 	"license": "MIT",
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "npm install && babel src -d dist",
-		"build-alone": "babel src -d dist",
-		"install": "npm run build-alone --silent",
+		"build": "babel src -d dist",
 		"test": "mocha --recursive --require babel-register"
 	},
 	"babel": {
-		"presets": ["env"]
+		"presets": [
+			"env"
+		]
 	},
 	"dependencies": {
+		"babel-preset-env": "^1.6.1",
+		"babel-register": "^6.26.0",
 		"chai": "^3.5.0",
 		"chai-webdriver": "^1.2.0",
 		"chromedriver": "^2.37.0",
@@ -23,11 +25,9 @@
 		"phantomjs-prebuilt": "^2.1.13",
 		"selenium-webdriver": "^3.0.1",
 		"spy": "^1.0.0",
-		"yadda": "^1.4.0",
-		"babel-preset-env": "^1.6.1"
+		"yadda": "^1.4.0"
 	},
 	"devDependencies": {
-		"babel-register": "^6.26.0",
 		"prettier": "1.11.1"
 	}
 }
