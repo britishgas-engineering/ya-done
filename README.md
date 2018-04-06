@@ -6,7 +6,7 @@
 
 ### Version 0.9.\* adds BrowserStack (Automating multiple browsers in parallel will be added in a further version)
 
-### Version 0.10.\* adds yadda dictionary support for tables
+### [Version 1.1.\* adds yadda dictionary support for tables](https://github.com/britishgas-engineering/ya-done/blob/master/README.md#adding-a-dictionary)
 
 ```js
 npm i ya-done --save
@@ -93,6 +93,36 @@ yaddaCore(
 );
 ```
 
+### Adding a dictionary
+
+Dictionaries have been abstracted for simple use in ya-done. Dictionaries allow the use of [tables](https://acuminous.gitbooks.io/yadda-user-guide/en/feature-specs/example-tables.html) and [variables within steps](https://acuminous.gitbooks.io/yadda-user-guide/en/usage/step-libraries.html#step-aliases).
+
+Pass in an array of objects to the `yaddaLibrary`. Objects need to have a `name` property and a `type` property. The name will equal the variable name to be used in the table and step.  The type must be one of the 3 dictionaryTypes in ya-done. (String types are supported in yadda by default and require no dictionary configuration, a string variable will require step configuration though).
+
+- `dictionaryTypes.TYPE_JSON`
+- `dictionaryTypes.TYPE_INTEGER`
+- `dictionaryTypes.TYPE_FLOAT`
+
+**Example Dictionary**
+```js
+import { dictionaryTypes } from 'ya-done';
+
+// define a dictionary
+ const dictionary = [
+   {
+     name: 'dataObject',
+     type: dictionaryTypes.TYPE_JSON,
+   },{
+     name: 'smallNumber'
+     type: dictionaryTypes.TYPE_INTEGER,
+   },{
+     name: 'bigNumber'
+     type: dictionaryTypes.TYPE_FLOAT,
+   }
+ ];
+
+```
+
 ### Example use
 
 Using the example project provided.
@@ -145,10 +175,10 @@ import { yaddaCore, yaddaLibrary, dictionaryTypes } from 'ya-done';
      type: dictionaryTypes.TYPE_JSON,
    },{
      name: 'smallNumber'
-     type:dictionaryTypes.TYPE_INTEGER,
+     type: dictionaryTypes.TYPE_INTEGER,
    },{
      name: 'bigNumber'
-     type:dictionaryTypes.TYPE_FLOAT,
+     type: dictionaryTypes.TYPE_FLOAT,
    }
  ];
 
