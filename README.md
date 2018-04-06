@@ -4,7 +4,7 @@
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
-### Version 0.9.\* adds BrowserStack (Automating multiple browsers in parallel will be added in a further version)
+### [Version 0.9.\* adds BrowserStack _automating multiple browsers in parallel will be added in a further version_](https://www.browserstack.com/automate)
 
 ### [Version 1.1.\* adds yadda dictionary support for tables](https://github.com/britishgas-engineering/ya-done/blob/master/README.md#adding-a-dictionary)
 
