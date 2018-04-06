@@ -1,13 +1,13 @@
-const webdriver = require('selenium-webdriver');
-const buildYadda = require('./lib/yadda-core');
-const yaddaLibraryBuilder = require('./lib/yadda-library-builder');
-const constants = require('./lib/yadda-constants');
+import webdriver from 'selenium-webdriver';
+import buildYadda from './lib/yadda-core';
+import yaddaLibraryBuilder from './lib/yadda-library-builder';
+import constants from './lib/yadda-constants';
 const dictionaryTypes = {
   TYPE_INTEGER: constants.TYPE_INTEGER,
   TYPE_FLOAT: constants.TYPE_FLOAT,
   TYPE_JSON: constants.TYPE_JSON,
 };
-module.exports = {
+export default {
   yaddaCore: buildYadda,
   yaddaLibrary: yaddaLibraryBuilder,
   webdriver,
