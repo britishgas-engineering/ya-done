@@ -2,7 +2,7 @@
 import Yadda from 'yadda';
 import buildDriver from './driver-core';
 
-function defineWindowInLibrary(library, framework) {
+const defineWindowInLibrary = (library, framework) => {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
     library.define('a web browser', (done) => {
       done();
@@ -20,7 +20,7 @@ function defineWindowInLibrary(library, framework) {
     this.driver.quit();
   });
   return library;
-}
+};
 
 export default function (library, framework) {
   if (library === null || library === undefined) {

@@ -7,13 +7,13 @@ const PHANTOM_FRAMEWORK = 'phantomjs';
 const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
 
-function baseDriver(capabilities) {
+const baseDriver = (capabilities) => {
   return new webdriver.Builder()
 		.withCapabilities(capabilities || webdriver.Capabilities.chrome())
 		.build();
-}
+};
 
-function buildPhantom() {
+const buildPhantom = () => {
   const capabilities = webdriver.Capabilities.phantomjs();
   capabilities[webdriver.Capability.ACCEPT_SSL_CERTS] = true;
   capabilities[webdriver.Capability.SECURE_SSL] = false;
@@ -24,29 +24,29 @@ function buildPhantom() {
     '--web-security=false',
   ];
   return baseDriver(capabilities);
-}
+};
 
-function defaultDriver() {
+const defaultDriver = () => {
   const driver = baseDriver();
   chai.use(chaiWebdriver(driver));
   return driver;
-}
+};
 
-function buildBrowserStack(framework) {
+const buildBrowserStack = (framework) => {
   const driver = new webdriver.Builder()
 		.usingServer('http://hub-cloud.browserstack.com/wd/hub')
 		.withCapabilities(framework.capabilities)
 		.build();
   driver.framework = BROWSERSTACK;
   return driver;
-}
+};
 
-function buildSimple(framework) {
+const buildSimple = (framework) => {
   const baseDriverBuilt = framework === PHANTOM_FRAMEWORK ? buildPhantom() : defaultDriver();
 
   baseDriverBuilt.framework = framework || CHROMEDRIVER;
   return baseDriverBuilt;
-}
+};
 
 const get = (framework) => {
   return buildSimple(framework);

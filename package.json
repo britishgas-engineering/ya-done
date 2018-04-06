@@ -7,14 +7,13 @@
 	"license": "MIT",
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "babel src -d dist",
-		"install": "npm run build --silent",
+		"build": "npm install && babel src -d dist",
+		"build-alone": "babel src -d dist",
+		"install": "npm run build-alone --silent",
 		"test": "mocha --recursive --require babel-register"
 	},
 	"babel": {
-		"presets": [
-			"env"
-		]
+		"presets": ["env"]
 	},
 	"dependencies": {
 		"chai": "^3.5.0",
