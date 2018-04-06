@@ -1,5 +1,5 @@
 import Yadda from 'yadda';
-import constants from './yadda-constants';
+import * as constants from './yadda-constants';
 
 const { Dictionary, converters } = Yadda;
 const convertJson = (item, callback) => callback(null, JSON.parse(item));

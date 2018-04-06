@@ -1,7 +1,7 @@
 import webdriver from 'selenium-webdriver';
 import buildYadda from './lib/yadda-core';
 import yaddaLibraryBuilder from './lib/yadda-library-builder';
-import constants from './lib/yadda-constants';
+import * as constants from './lib/yadda-constants';
 const dictionaryTypes = {
   TYPE_INTEGER: constants.TYPE_INTEGER,
   TYPE_FLOAT: constants.TYPE_FLOAT,
