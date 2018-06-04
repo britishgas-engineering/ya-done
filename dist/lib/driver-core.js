@@ -1,9 +1,12 @@
 const frameworkBuilder = require('./framework-builder');
 
 function innerDriverCore(framework) {
-  const action = typeof framework === 'object' && !Array.isArray(framework) ?
-    frameworkBuilder.getBrowserStack :
-    frameworkBuilder.get;
+  let action = frameworkBuilder.get;
+  if (typeof framework === 'object' && !Array.isArray(framework)) {
+    action = framework.useMobile
+			? frameworkBuilder.getMobileChrome
+			: frameworkBuilder.getBrowserStack;
+  }
   return action(framework);
 }
 

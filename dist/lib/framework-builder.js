@@ -13,6 +13,21 @@ function baseDriver(capabilities) {
 		.build();
 }
 
+function buildIPhone5(framework) {
+  delete framework.useMobile;
+
+  const driver = new webdriver.Builder()
+		.usingServer('http://hub-cloud.browserstack.com/wd/hub')
+		.withCapabilities(framework.capabilities)
+    .set(
+			'chromeOptions.args',
+			'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4'
+		)
+		.build();
+  driver.framework = BROWSERSTACK;
+  return driver;
+}
+
 function buildPhantom() {
   const capabilities = webdriver.Capabilities.phantomjs();
   capabilities[webdriver.Capability.ACCEPT_SSL_CERTS] = true;
@@ -51,6 +66,9 @@ function buildSimple(framework) {
 const frameworks = {
   get(framework) {
     return buildSimple(framework);
+  },
+  getMobileChrome() {
+    return buildIPhone5(framework);
   },
   getBrowserStack(framework) {
     return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
