@@ -1,4 +1,6 @@
 const webdriver = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+const firefox = require('selenium-webdriver/firefox');
 const phantomjs = require('phantomjs-prebuilt').path;
 const chai = require('chai');
 const chaiWebdriver = require('chai-webdriver');
@@ -8,9 +10,19 @@ const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
 
 function baseDriver(capabilities) {
-  return new webdriver.Builder()
-		.withCapabilities(capabilities || webdriver.Capabilities.chrome())
-		.build();
+  const builtDriver = new webdriver.Builder();
+  if (capabilities && capabilities.browserName) {
+    builtDriver.forBrowser(capabilities.browserName);
+  }
+  builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
+  if (capabilities && capabilities.args) {
+    if (capabilities.browserName === 'chrome') {
+      builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
+    } else if (capabilities.browserName === 'firefox') {
+      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.args));
+    }
+  }
+  return builtDriver.build();
 }
 
 function buildIPhone5(framework) {
@@ -41,8 +53,8 @@ function buildPhantom() {
   return baseDriver(capabilities);
 }
 
-function defaultDriver() {
-  const driver = baseDriver();
+function defaultDriver(capabilities) {
+  const driver = baseDriver(capabilities);
   chai.use(chaiWebdriver(driver));
   return driver;
 }
@@ -57,7 +69,8 @@ function buildBrowserStack(framework) {
 }
 
 function buildSimple(framework) {
-  const baseDriverBuilt = framework === PHANTOM_FRAMEWORK ? buildPhantom() : defaultDriver();
+  const capabilities = framework && framework.capabilities;
+  const baseDriverBuilt = framework === PHANTOM_FRAMEWORK ? buildPhantom() : defaultDriver(capabilities);
 
   baseDriverBuilt.framework = framework || CHROMEDRIVER;
   return baseDriverBuilt;

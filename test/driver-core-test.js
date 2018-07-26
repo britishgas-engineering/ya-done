@@ -47,4 +47,24 @@ describe('driver-core :', () => {
 			'library should be configured for browserstack'
 		);
   });
+
+  describe('framework is object with useBrowser framework prop is used', () => {
+    driverCore = innerDriverCore({
+      useBrowser: true,
+      capabilities: {
+        browserName: 'chrome',
+        resolution: '1024x768',
+        args: [
+          '--headless',
+          '--foo',
+          '--bar'
+        ]
+      },
+    });
+    should.equal(
+			driverCore.framework.useBrowser,
+			true,
+			'library should be configured for chrome browser'
+		);
+  });
 });

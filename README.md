@@ -8,6 +8,8 @@
 
 ### [Version 1.1.\* adds yadda dictionary support for tables](https://github.com/britishgas-engineering/ya-done/blob/master/README.md#adding-a-dictionary)
 
+### [Version 1.2.\* removes phantomjs and adds the ability to add arguments via index.js file to run both chrome and firefox headless](http://www.assertselenium.com/java/list-of-chrome-driver-command-line-arguments/)
+
 ```js
 npm i ya-done --save
 ```
@@ -16,13 +18,12 @@ The aim of this package is to build a simple configuration for 'yadda' to enable
 
 ya-done configures 'yadda' with chai with 'selenium-webdriver'. 'yadda' has been created with two context properties. 'selenium-webdriver' can be accessed via the property 'driver' additionally a property of 'ctx', type object, has been added to allow the passing of data between steps.
 
-ya-done allows testing with either chomedriver or phantomjs. When using phantomjs chai-webdriver is not configured as a 'dom' is not available. Additional frameworks may be configured in later versions.
+ya-done allows testing with either chomedriver or geckodriver.
 
 ### Technologies Used
 
 * Pre-configured _[yadda](https://github.com/acuminous/yadda)_
 * Pre-configured _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
-* Pre-configured _[phantomjs](http://phantomjs.org)_
 * _[BrowserStack](https://www.browserstack.com)_
 
 ### Default steps
@@ -45,18 +46,85 @@ When using a configuration object the window size can also be set, more configur
 import { yaddaCore } from 'ya-done';
 import steps from './steps';
 /* configure */
-yaddaCore(steps);
-
-/* or configure */
-yaddaCore(steps, 'phantomjs');
-
-/* or configure */
 yaddaCore(steps, {
-	framework: 'phantomjs',
-	size: {
-		width: 1024,
-		height: 768,
-	},
+    useBrowser: true,
+    capabilities: {
+        browserName: 'chrome',
+        args: [
+            '--disable-background-networking',
+            '--disable-background-timer-throttling',
+            '--disable-client-side-phishing-detection',
+            '--disable-default-apps',
+            '--disable-hang-monitor',
+            '--disable-popup-blocking',
+            '--disable-prompt-on-repost',
+            '--disable-sync',
+            '--metrics-recording-only',
+            '--no-first-run',
+            '--safebrowsing-disable-auto-update',
+            '--enable-automation',
+            '--password-store=basic',
+            '--use-mock-keychain',
+            '--user-data',
+            '--hide-scrollbars',
+            '--mute-audio',
+            '--disable-setuid-sandbox',
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-default-browser-check",
+            "--disable-extensions",
+            "--disable-translate",
+            "--disable-logging",
+            "--headless",
+            "--no-sandbox",
+            "--remote-debugging-port=0",
+            "--window-size=1440,900",
+            "--disable-web-security",
+            "--disable-renderer-backgrounding",
+            "--disable-background-timer-throttling"
+        ]
+    }
+});
+
+/* Or for Firefox */
+yaddaCore(steps, {
+    useBrowser: true,
+    capabilities: {
+        browserName: 'firefox',
+        args: [
+            '--disable-background-networking',
+            '--disable-background-timer-throttling',
+            '--disable-client-side-phishing-detection',
+            '--disable-default-apps',
+            '--disable-hang-monitor',
+            '--disable-popup-blocking',
+            '--disable-prompt-on-repost',
+            '--disable-sync',
+            '--metrics-recording-only',
+            '--no-first-run',
+            '--safebrowsing-disable-auto-update',
+            '--enable-automation',
+            '--password-store=basic',
+            '--use-mock-keychain',
+            '--user-data',
+            '--hide-scrollbars',
+            '--mute-audio',
+            '--disable-setuid-sandbox',
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-default-browser-check",
+            "--disable-extensions",
+            "--disable-translate",
+            "--disable-logging",
+            "--headless",
+            "--no-sandbox",
+            "--remote-debugging-port=0",
+            "--window-size=1440,900",
+            "--disable-web-security",
+            "--disable-renderer-backgrounding",
+            "--disable-background-timer-throttling"
+        ]
+    }
 });
 ```
 
@@ -71,12 +139,6 @@ For BrowserStack add a configuration object as the second parameter in yaddaCore
 import { yaddaCore } from 'ya-done';
 import steps from './steps';
 /* configure */
-yaddaCore(steps);
-
-/* or configure */
-yaddaCore(steps, 'phantomjs');
-
-/* or configure */
 yaddaCore(
   steps,
   {
@@ -141,7 +203,45 @@ Using the example project provided.
 
 ```js
 import { yaddaCore } from 'ya-done';
-yaddaCore(steps);
+yaddaCore(steps, {
+    useBrowser: true,
+    capabilities: {
+        browserName: 'chrome',
+        args: [
+            '--disable-background-networking',
+            '--disable-background-timer-throttling',
+            '--disable-client-side-phishing-detection',
+            '--disable-default-apps',
+            '--disable-hang-monitor',
+            '--disable-popup-blocking',
+            '--disable-prompt-on-repost',
+            '--disable-sync',
+            '--metrics-recording-only',
+            '--no-first-run',
+            '--safebrowsing-disable-auto-update',
+            '--enable-automation',
+            '--password-store=basic',
+            '--use-mock-keychain',
+            '--user-data',
+            '--hide-scrollbars',
+            '--mute-audio',
+            '--disable-setuid-sandbox',
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-default-browser-check",
+            "--disable-extensions",
+            "--disable-translate",
+            "--disable-logging",
+            "--headless",
+            "--no-sandbox",
+            "--remote-debugging-port=0",
+            "--window-size=1440,900",
+            "--disable-web-security",
+            "--disable-renderer-backgrounding",
+            "--disable-background-timer-throttling"
+        ]
+    }
+});
 ```
 
 **hello.feature**
