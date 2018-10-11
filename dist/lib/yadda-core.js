@@ -38,26 +38,26 @@ function buildYadda(library, framework) {
   Yadda.plugins.mocha.StepLevelPlugin.init();
   const features = new Yadda.FeatureFileSearch('features');
   const builtLibrary = defineWindowInLibrary(library, framework);
+  
+  const yadda = Yadda.createInstance(
+    builtLibrary,
+    {
+      ctx: {},
+      driver: buildDriver(framework),
+      width: framework && framework.size ?
+        framework.size.width :
+        1024,
+      height: framework && framework.size ?
+        framework.size.height :
+        728,
+    }
+  );
 
   return features
     .each(
       file => featureFile(
         file,
         (feature) => {
-          const yadda = Yadda.createInstance(
-            builtLibrary,
-            {
-              ctx: {},
-              driver: buildDriver(framework),
-              width: framework && framework.size ?
-                framework.size.width :
-                1024,
-              height: framework && framework.size ?
-                framework.size.height :
-                728,
-            }
-          );
-
           scenarios(
             feature.scenarios,
             (scenario) => {
