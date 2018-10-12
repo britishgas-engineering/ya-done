@@ -27,7 +27,14 @@ function defineWindowInLibrary(library, framework) {
     function endTest() {
       this.driver.quit();
     }
-  );
+  )
+  library.define(
+    'end the feature file',
+    function endFeatureFile() {
+      if (framework.useParallel) {
+        this.driver.quit();
+      }
+    });
   return library;
 }
 
