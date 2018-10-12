@@ -14,11 +14,11 @@
 		"chai-webdriver": "^1.2.0",
 		"chromedriver": "^2.37.0",
 		"mocha": "^5.2.0",
+		"mocha.parallel": "^0.15.6",
 		"phantomjs-prebuilt": "^2.1.13",
 		"selenium-webdriver": "^3.0.1",
 		"spy": "^0.1.3",
-		"yadda": "^1.4.0",
-		"mocha-parallel-tests": "^2.0.4"
+		"yadda": "^1.4.0"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.18.0",
