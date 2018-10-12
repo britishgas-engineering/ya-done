@@ -48,7 +48,7 @@ function buildYadda(library, framework) {
   const builtLibrary = defineWindowInLibrary(library, framework);
 
   if (framework.useParallel) {
-    parallel(function() {
+    parallel('test', function() {
     return features
       .each(
         file => featureFile(
