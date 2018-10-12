@@ -1,7 +1,6 @@
 /* global featureFile, scenarios, steps */
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
-const parallel = require('mocha.parallel');
 
 function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
@@ -48,7 +47,6 @@ function buildYadda(library, framework) {
   const builtLibrary = defineWindowInLibrary(library, framework);
 
   if (framework.useParallel) {
-    parallel('test', function() {
     return features
       .each(
         file => featureFile(
@@ -81,7 +79,6 @@ function buildYadda(library, framework) {
             );
           }
         )
-      )}
     );
   } else {
     const yadda = Yadda.createInstance(
