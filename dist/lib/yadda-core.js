@@ -66,20 +66,20 @@ function buildYadda(library, framework) {
                   728,
               }
             );
-
-            parallel('feature', function() {
-              scenarios(
-                feature.scenarios,
-                (scenario) => {
+            parallel('feature', function () {
+            scenarios(
+              feature.scenarios,
+              (scenario) => {
+                
                   steps(
                     scenario.steps,
                     (step, done) => {
                       yadda.run(step, done);
                     }
                   );
-                }
-              )
-            })
+                })
+              }
+            )
           }
         )
       );
