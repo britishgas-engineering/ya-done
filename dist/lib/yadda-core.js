@@ -1,7 +1,7 @@
 /* global featureFile, scenarios, steps */
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
-import parallel from 'async/parallel';
+const async = require('async');
 
 function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
@@ -72,15 +72,15 @@ const runSeries = (features, builtLibrary, framework) => {
 
 const runParallel = (features, builtLibrary, framework) => {
   const featurePromises = [];
-  async.parallel([
-    function (runInParallel) {
-      features
-        .each((file) => {
-          featurePromises.push(
-            new Promise((resolve) => {
-              featureFile(
-                file,
-                (feature) => {
+  features
+    .each((file) => {
+      featurePromises.push(
+        new Promise((resolve) => {
+          featureFile(
+            file,
+            (feature) => {
+              async.parallel([
+                function () {
                   const yadda = Yadda.createInstance(
                     builtLibrary,
                     {
@@ -106,12 +106,14 @@ const runParallel = (features, builtLibrary, framework) => {
                         }
                       );
                     })
-                });
-            })
-          );
-        });
-    }
-  ])
+                }
+              ]);
+            }
+          )
+        }
+        )
+      );
+    });
   return Promise.all(featurePromises);
 };
 
