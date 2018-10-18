@@ -1,6 +1,7 @@
 /* global featureFile, scenarios, steps */
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
+import parallel from 'async/parallel';
 
 function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
@@ -33,7 +34,7 @@ function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-const runSeries = (features, builtLibrary, framework)  => {
+const runSeries = (features, builtLibrary, framework) => {
   const yadda = Yadda.createInstance(
     builtLibrary,
     {
@@ -69,44 +70,48 @@ const runSeries = (features, builtLibrary, framework)  => {
     );
 };
 
-const runParallel = (features, builtLibrary, framework)  => { 
+const runParallel = (features, builtLibrary, framework) => {
   const featurePromises = [];
-  features
-    .each((file) =>  {
-      featurePromises.push(
-        new Promise((resolve) => {
-          featureFile(
-            file,
-            (feature) => {
-              const yadda = Yadda.createInstance(
-                builtLibrary,
-                {
-                  ctx: {},
-                  parallelResolve: resolve,
-                  driver: buildDriver(framework),
-                  width: framework && framework.size ?
-                    framework.size.width :
-                    1024,
-                  height: framework && framework.size ?
-                    framework.size.height :
-                    728,
-                }
-              );
-    
-              scenarios(
-                feature.scenarios,
-                (scenario) => {
-                  steps(
-                    scenario.steps,
-                    (step, done) => {
-                      yadda.run(step, done);
+  async.parallel([
+    function (runInParallel) {
+      features
+        .each((file) => {
+          featurePromises.push(
+            new Promise((resolve) => {
+              featureFile(
+                file,
+                (feature) => {
+                  const yadda = Yadda.createInstance(
+                    builtLibrary,
+                    {
+                      ctx: {},
+                      parallelResolve: resolve,
+                      driver: buildDriver(framework),
+                      width: framework && framework.size ?
+                        framework.size.width :
+                        1024,
+                      height: framework && framework.size ?
+                        framework.size.height :
+                        728,
                     }
                   );
-                })
-            });
-        })
-      );
-    });
+
+                  scenarios(
+                    feature.scenarios,
+                    (scenario) => {
+                      steps(
+                        scenario.steps,
+                        (step, done) => {
+                          yadda.run(step, done);
+                        }
+                      );
+                    })
+                });
+            })
+          );
+        });
+    }
+  ])
   return Promise.all(featurePromises);
 };
 
@@ -117,7 +122,7 @@ function buildYadda(library, framework) {
   Yadda.plugins.mocha.StepLevelPlugin.init();
   const features = new Yadda.FeatureFileSearch('features');
   const builtLibrary = defineWindowInLibrary(library, framework);
-   return framework.useParallel ? runParallel(features, builtLibrary, framework) : runSeries(features, builtLibrary, framework);
+  return framework.useParallel ? runParallel(features, builtLibrary, framework) : runSeries(features, builtLibrary, framework);
 }
 
 module.exports = buildYadda;
