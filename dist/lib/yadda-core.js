@@ -1,6 +1,7 @@
 /* global featureFile, scenarios, steps */
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
+const parallel = require('run-parallel');
 
 function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
@@ -59,7 +60,7 @@ function buildYadda(library, framework) {
               }
             );
 
-            scenarios(
+            parallel([scenarios(
               feature.scenarios,
               (scenario) => {
                 steps(
@@ -69,7 +70,8 @@ function buildYadda(library, framework) {
                   }
                 );
               }
-            );
+            )
+            ]);
           }
         )
       );
