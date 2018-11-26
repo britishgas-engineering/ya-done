@@ -31,13 +31,15 @@ function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-function buildYadda(library, framework) {
+function buildYadda(library, framework, useParallel) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
   Yadda.plugins.mocha.StepLevelPlugin.init();
   const features = new Yadda.FeatureFileSearch('features');
   const builtLibrary = defineWindowInLibrary(library, framework);
+
+  console.log(useParallel)
   
   const yadda = Yadda.createInstance(
     builtLibrary,
