@@ -27,16 +27,15 @@ function baseDriver(capabilities) {
 
 function buildIPhone5(framework) {
   delete framework.useMobile;
-
+  // const serverConfig = {
+  //   host: 'localhost',
+  //   port: 4723
+  // }
   const driver = new webdriver.Builder()
-		.usingServer('http://hub-cloud.browserstack.com/wd/hub')
-		.withCapabilities(framework.capabilities)
-    .set(
-			'chromeOptions.args',
-			'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4'
-		)
-		.build();
-  driver.framework = BROWSERSTACK;
+    .usingServer('http://localhost:4723/wd/hub')
+    .withCapabilities(framework.capabilities)
+    .build()
+    console.log(driver)
   return driver;
 }
 
@@ -61,9 +60,9 @@ function defaultDriver(capabilities) {
 
 function buildBrowserStack(framework) {
   const driver = new webdriver.Builder()
-		.usingServer('http://hub-cloud.browserstack.com/wd/hub')
-		.withCapabilities(framework.capabilities)
-		.build();
+    .usingServer('http://hub-cloud.browserstack.com/wd/hub')
+    .withCapabilities(framework.capabilities)
+    .build();
   driver.framework = BROWSERSTACK;
   return driver;
 }
@@ -78,12 +77,15 @@ function buildSimple(framework) {
 
 const frameworks = {
   get(framework) {
+    console.log(framework)
     return buildSimple(framework);
   },
-  getMobileChrome() {
+  getMobileChrome(framework) {
+    console.log(framework)
     return buildIPhone5(framework);
   },
   getBrowserStack(framework) {
+    console.log(framework)
     return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
   },
 };
