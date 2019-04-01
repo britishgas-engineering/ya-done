@@ -27,15 +27,10 @@ function baseDriver(capabilities) {
 
 function buildIPhone5(framework) {
   delete framework.useMobile;
-  // const serverConfig = {
-  //   host: 'localhost',
-  //   port: 4723
-  // }
   const driver = new webdriver.Builder()
     .usingServer('http://localhost:4723/wd/hub')
     .withCapabilities(framework.capabilities)
     .build()
-    console.log(driver)
   return driver;
 }
 
@@ -77,15 +72,12 @@ function buildSimple(framework) {
 
 const frameworks = {
   get(framework) {
-    console.log(framework)
     return buildSimple(framework);
   },
   getMobileChrome(framework) {
-    console.log(framework)
     return buildIPhone5(framework);
   },
   getBrowserStack(framework) {
-    console.log(framework)
     return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
   },
 };

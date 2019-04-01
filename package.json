@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"appium": "^1.12.1",
+		"appium-chromedriver": "^4.11.0",
 		"chai": "^3.5.0",
 		"chai-webdriver": "^1.2.0",
 		"chromedriver": "^2.37.0",
