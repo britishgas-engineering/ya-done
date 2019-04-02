@@ -9,7 +9,7 @@ function innerDriverCore(framework) {
   // If the framework is an object, determine if it is a local browser or browserstack
   if (typeof framework === 'object' && !Array.isArray(framework)) {
     if (framework.useMobile) {
-      action = frameworkBuilder.getMobileChrome;
+      action = frameworkBuilder.getLocalMobile;
     } else if (framework.useBrowser) {
       action = frameworkBuilder.get;
     } else {

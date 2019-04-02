@@ -25,7 +25,7 @@ function baseDriver(capabilities) {
   return builtDriver.build();
 }
 
-function buildIPhone5(framework) {
+function buildLocalMobile(framework) {
   delete framework.useMobile;
   const driver = new webdriver.Builder()
     .usingServer('http://localhost:4723/wd/hub')
@@ -74,8 +74,8 @@ const frameworks = {
   get(framework) {
     return buildSimple(framework);
   },
-  getMobileChrome(framework) {
-    return buildIPhone5(framework);
+  getLocalMobile(framework) {
+    return buildLocalMobile(framework);
   },
   getBrowserStack(framework) {
     return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
