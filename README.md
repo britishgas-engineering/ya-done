@@ -1,15 +1,11 @@
 
 # ya-done
 
-**Ready to use yadda BBD test framework with selenium-webdriver and chai for chromedriver and phantomjs**
+**Ready to use yadda BBD test framework with selenium-webdriver and chai**
+
+### [Version 1.3.\* adds the ability to run tests using appium for a better mobile web testing experience](http://appium.io/docs/en/about-appium/getting-started/?lang=en)
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
-
-### [Version 0.9.\* adds BrowserStack _automating multiple browsers in parallel will be added in a further version_](https://www.browserstack.com/automate)
-
-### [Version 1.1.\* adds yadda dictionary support for tables](https://github.com/britishgas-engineering/ya-done/blob/master/README.md#adding-a-dictionary)
-
-### [Version 1.2.\* adds the ability to add arguments via index.js file to run both chrome and firefox headless](http://www.assertselenium.com/java/list-of-chrome-driver-command-line-arguments/)
 
 ```js
 
@@ -19,18 +15,21 @@ npm  i  ya-done --save
 
 The aim of this package is to build a simple configuration for 'yadda' to enable QA test engineers to productively build test projects for web projects using JavaScript.
 
-ya-done configures 'yadda' with chai with 'selenium-webdriver'. 'yadda' has been created with two context properties. 'selenium-webdriver' can be accessed via the property 'driver' additionally a property of 'ctx', type object, has been added to allow the passing of data between steps.
+ya-done configures 'yadda' with chai with 'selenium-webdriver'. 'yadda' has been created with two context properties. 'selenium-webdriver' can be accessed via the property 'driver'. Additionally a property of 'ctx', type object, has been added to allow the passing of data between steps.
 
-ya-done allows testing with chromedriver, geckodriver and phantomjs.
+ya-done allows testing with the following devices or technologies:
+
+* Chromedriver
+* Geckodriver
+* PhantomJS
+* BrowserStack
+* Appium
 
 ### Technologies Used
 
 * Pre-configured _[yadda](https://github.com/acuminous/yadda)_
-
 * Pre-configured _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
-
 * Pre-configured _[phantomJS](http://phantomjs.org/)_
-
 *  _[BrowserStack](https://www.browserstack.com)_
 
 ### Default steps
@@ -49,7 +48,7 @@ ya-done exposes "yaddaCore" which requires a step library to run
 
 The web-browser to be used for testing can be defined by either a string or configuration object.
 
-When using a configuration object the window size can also be set, more configuration option may become available as issues are found or raised.
+When using a configuration object the window size can also be set. Capabiltiies can also be set depending on the chosen browser as highlighted below for Chrome.
 
 ```js
 
@@ -62,152 +61,39 @@ useBrowser:  true,
 capabilities: {
 browserName:  'chrome',
 args: [
-
 '--disable-background-networking',
-
 '--disable-background-timer-throttling',
-
 '--disable-client-side-phishing-detection',
-
 '--disable-default-apps',
-
 '--disable-hang-monitor',
-
 '--disable-popup-blocking',
-
 '--disable-prompt-on-repost',
-
 '--disable-sync',
-
 '--metrics-recording-only',
-
 '--no-first-run',
-
 '--safebrowsing-disable-auto-update',
-
 '--enable-automation',
-
 '--password-store=basic',
-
 '--use-mock-keychain',
-
 '--user-data',
-
 '--hide-scrollbars',
-
 '--mute-audio',
-
 '--disable-setuid-sandbox',
-
 "--disable-dev-shm-usage",
-
 "--disable-gpu",
-
 "--no-default-browser-check",
-
 "--disable-extensions",
-
 "--disable-translate",
-
 "--disable-logging",
-
 "--headless",
-
 "--no-sandbox",
-
 "--remote-debugging-port=0",
-
 "--window-size=1440,900",
-
 "--disable-web-security",
-
 "--disable-renderer-backgrounding",
-
 "--disable-background-timer-throttling"
-
-]
-
-}
-
+]}
 });
-
-  
-
-/* Or for Firefox */
-yaddaCore(steps, {
-useBrowser:  true,
-capabilities: {
-browserName:  'firefox',
-args: [
-
-'--disable-background-networking',
-
-'--disable-background-timer-throttling',
-
-'--disable-client-side-phishing-detection',
-
-'--disable-default-apps',
-
-'--disable-hang-monitor',
-
-'--disable-popup-blocking',
-
-'--disable-prompt-on-repost',
-
-'--disable-sync',
-
-'--metrics-recording-only',
-
-'--no-first-run',
-
-'--safebrowsing-disable-auto-update',
-
-'--enable-automation',
-
-'--password-store=basic',
-
-'--use-mock-keychain',
-
-'--user-data',
-
-'--hide-scrollbars',
-
-'--mute-audio',
-
-'--disable-setuid-sandbox',
-
-"--disable-dev-shm-usage",
-
-"--disable-gpu",
-
-"--no-default-browser-check",
-
-"--disable-extensions",
-
-"--disable-translate",
-
-"--disable-logging",
-
-"--headless",
-
-"--no-sandbox",
-
-"--remote-debugging-port=0",
-
-"--window-size=1440,900",
-
-"--disable-web-security",
-
-"--disable-renderer-backgrounding",
-
-"--disable-background-timer-throttling"
-
-]
-
-}
-
-});
-
 ```
 
 ### Configuration _(browserstack)_
@@ -216,7 +102,7 @@ For BrowserStack add a configuration object as the second parameter in yaddaCore
 
 [Documentation for setting up the configuration object.](https://www.browserstack.com/automate/node)
 
-**Please note to run multiple tests (scenarios) the driver needs to be quit at the end of each scenario**
+**Please note to run multiple tests (scenarios) the driver needs to be quit at the end of the last feature file**
 
 ```js
 
@@ -234,10 +120,47 @@ resolution:  '1024x768',
 'browserstack.user':  ${your_id},
 'browserstack.key':  ${your_pass},
 },
+});
 
-}
+```
 
-);
+### Configuration _(mobile)_
+
+For mobile add `useMobile: true` into your yaddaCore configuration as highlighted below.
+
+All what is required to run on mobile are the below technologies:
+
+* [Appium](http://appium.io/)
+* [XCode](https://developer.apple.com/xcode/) - _Only available on Apple Devices_
+* [Android Studio](https://developer.android.com/studio)
+
+```js
+
+import { yaddaCore } from  'ya-done';
+import  steps  from  './steps';
+
+/* configuration for iPhone */
+  yaddaCore(steps, {
+    useMobile: true,
+    capabilities: {
+      platformName: 'iOS',
+      deviceName: 'iPhone X',
+      browserName: 'Safari',
+      automationName: 'XCUITest',
+      platformVersion: '12.2'
+    }
+  });
+  /* configuration for Android */
+  yaddaCore(steps, {
+    useMobile: true,
+    capabilities: {
+      platformName: 'Android',
+      deviceName: 'Samsung Galaxy S7 API Q',
+      browserName: 'Chrome',
+      automationName: 'uiautomator2',
+      platformVersion: 'Q'
+    }
+  });
 
 ```
 
@@ -307,78 +230,42 @@ useBrowser:  true,
 capabilities: {
 browserName:  'chrome',
 args: [
-
 '--disable-background-networking',
-
 '--disable-background-timer-throttling',
-
 '--disable-client-side-phishing-detection',
-
 '--disable-default-apps',
-
 '--disable-hang-monitor',
-
 '--disable-popup-blocking',
-
 '--disable-prompt-on-repost',
-
 '--disable-sync',
-
 '--metrics-recording-only',
-
 '--no-first-run',
-
 '--safebrowsing-disable-auto-update',
-
 '--enable-automation',
-
 '--password-store=basic',
-
 '--use-mock-keychain',
-
 '--user-data',
-
 '--hide-scrollbars',
-
 '--mute-audio',
-
 '--disable-setuid-sandbox',
-
 "--disable-dev-shm-usage",
-
 "--disable-gpu",
-
 "--no-default-browser-check",
-
 "--disable-extensions",
-
 "--disable-translate",
-
 "--disable-logging",
-
 "--headless",
-
 "--no-sandbox",
-
 "--remote-debugging-port=0",
-
 "--window-size=1440,900",
-
 "--disable-web-security",
-
 "--disable-renderer-backgrounding",
-
 "--disable-background-timer-throttling"
-
 ]
-
 }
-
 });
 
 ```
-
-  
 
 **hello.feature**
 
