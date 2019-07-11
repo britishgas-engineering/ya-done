@@ -1,11 +1,9 @@
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
-const phantomjs = require('phantomjs-prebuilt').path;
 const chai = require('chai');
 const chaiWebdriver = require('chai-webdriver');
 
-const PHANTOM_FRAMEWORK = 'phantomjs';
 const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
 
@@ -34,19 +32,6 @@ function buildLocalMobile(framework) {
   return driver;
 }
 
-function buildPhantom() {
-  const capabilities = webdriver.Capabilities.phantomjs();
-  capabilities[webdriver.Capability.ACCEPT_SSL_CERTS] = true;
-  capabilities[webdriver.Capability.SECURE_SSL] = false;
-  capabilities['phantomjs.binary.path'] = phantomjs;
-  capabilities['phantomjs.cli.args'] = [
-    '--ignore-ssl-errors=true',
-    '--ssl-protocol=any',
-    '--web-security=false',
-  ];
-  return baseDriver(capabilities);
-}
-
 function defaultDriver(capabilities) {
   const driver = baseDriver(capabilities);
   chai.use(chaiWebdriver(driver));
@@ -64,7 +49,7 @@ function buildBrowserStack(framework) {
 
 function buildSimple(framework) {
   const capabilities = framework && framework.capabilities;
-  const baseDriverBuilt = framework === PHANTOM_FRAMEWORK ? buildPhantom() : defaultDriver(capabilities);
+  const baseDriverBuilt = defaultDriver(capabilities);
 
   baseDriverBuilt.framework = framework || CHROMEDRIVER;
   return baseDriverBuilt;
