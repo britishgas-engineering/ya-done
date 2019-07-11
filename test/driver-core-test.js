@@ -26,11 +26,6 @@ describe('driver-core :', () => {
     });
   });
 
-  describe('framework is phantomjs returns built library for phantom', () => {
-    driverCore = innerDriverCore('phantomjs');
-    should.equal(driverCore.framework, 'phantomjs', 'library should be configured for phantomjs');
-  });
-
   describe('framework is object framework prop is used', () => {
     driverCore = innerDriverCore({
       capabilities: {

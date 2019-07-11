@@ -3,7 +3,7 @@
 
 **Ready to use yadda BBD test framework with selenium-webdriver and chai**
 
-### [Version 1.3.\* adds the ability to run tests using appium for a better mobile web testing experience](http://appium.io/docs/en/about-appium/getting-started/?lang=en)
+### Version 1.4.0 removes PhantomJS. To use headless, simply pass headless as part of the arguments in Chrome
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
@@ -21,7 +21,6 @@ ya-done allows testing with the following devices or technologies:
 
 * Chromedriver
 * Geckodriver
-* PhantomJS
 * BrowserStack
 * Appium
 
@@ -29,7 +28,6 @@ ya-done allows testing with the following devices or technologies:
 
 * Pre-configured _[yadda](https://github.com/acuminous/yadda)_
 * Pre-configured _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
-* Pre-configured _[phantomJS](http://phantomjs.org/)_
 *  _[BrowserStack](https://www.browserstack.com)_
 
 ### Default steps

@@ -38,7 +38,6 @@ function buildYadda(library, framework) {
   Yadda.plugins.mocha.StepLevelPlugin.init();
   const features = new Yadda.FeatureFileSearch('features');
   const builtLibrary = defineWindowInLibrary(library, framework);
-  
   const yadda = Yadda.createInstance(
     builtLibrary,
     {
