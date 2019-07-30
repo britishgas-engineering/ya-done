@@ -3,7 +3,7 @@
 
 **Ready to use yadda BBD test framework with selenium-webdriver and chai**
 
-### Version 1.4.0 removes PhantomJS. To use headless, simply pass headless as part of the arguments in Chrome
+### Version 1.5.0 removes the restriction of only being able to use Browserstack for continuous testing. See Continuous Testing config below
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
@@ -21,21 +21,23 @@ ya-done allows testing with the following devices or technologies:
 
 * Chromedriver
 * Geckodriver
-* BrowserStack
+* Continuous Testing (Browserstack, Perfecto etc)
 * Appium
 
 ### Technologies Used
 
 * Pre-configured _[yadda](https://github.com/acuminous/yadda)_
 * Pre-configured _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
-*  _[BrowserStack](https://www.browserstack.com)_
+
+Below are some Continuous Testing providers which have been used with ya-done
+* _[BrowserStack](https://www.browserstack.com)_
+* _[Perfecto](https://www.perfecto.io/)_
 
 ### Default steps
 
 ya-done has preconfigured "set-up" and "tear down" steps.
 
 *  **a web browser**  _(sets window size, solves lots of webdriver common problems)_
-
 *  **end the test**  _(calls quit on webdriver, only to be used on last scenario in the last feature file)_
 
 These steps are added to the yadda library by default and are used in the example project and seen below.
@@ -94,11 +96,12 @@ args: [
 });
 ```
 
-### Configuration _(browserstack)_
+### Configuration _(Continuous Testing)_
 
-For BrowserStack add a configuration object as the second parameter in yaddaCore.
+For any continuous product, add a configuration object as the second parameter in yaddaCore.
 
-[Documentation for setting up the configuration object.](https://www.browserstack.com/automate/node)
+[Documentation for setting up the configuration object in Browserstack.](https://www.browserstack.com/automate/node)
+[Documentation for setting up the configuration object in Perfecto.](https://developers.perfectomobile.com/display/PD/Automating+Web-apps+with+Perfecto)
 
 **Please note to run multiple tests (scenarios) the driver needs to be quit at the end of the last feature file**
 
@@ -107,18 +110,32 @@ For BrowserStack add a configuration object as the second parameter in yaddaCore
 import { yaddaCore } from  'ya-done';
 import  steps  from  './steps';
 
-/* configure */
-yaddaCore(steps,{
-capabilities: {
-browserName:  'Chrome', // other browsers available
-browser_version:  '62.0',
-os:  'Windows',
-os_version:  '8',
-resolution:  '1024x768',
-'browserstack.user':  ${your_id},
-'browserstack.key':  ${your_pass},
-},
-});
+/* Browserstack */
+yaddaCore(steps, {
+  server: 'http://hub-cloud.browserstack.com/wd/hub',
+  capabilities: {
+    browserName: 'Chrome', // other browsers available
+    browser_version: '62.0',
+    os: 'Windows',
+    os_version: '8',
+    resolution: '1024x768',
+    'browserstack.user': ${ your_id },
+  'browserstack.key': ${ your_pass },
+  },
+  });
+  
+  /* Perfecto */
+  yaddaCore(steps, {
+  server: 'https://INSERT_PERFECTO_HOST_HERE/nexperience/perfectomobile/wd/hub/fast',
+  capabilities: {
+      platformName: 'Windows',
+      platformVersion: '10',
+      browserName: 'Chrome',
+      browserVersion: '74',
+      resolution: '1280x1024',
+    securityToken: 'INSERT_SECURITY_TOKEN'
+  },
+  });
 
 ```
 
@@ -266,12 +283,10 @@ args: [
 ```
 
 **hello.feature**
-
 ```feature
 
 Feature: ya-done example
 
-  
 Scenario: webdriver is simple with ya-done
 Given a web browser
 When the browser navigates to github
@@ -294,58 +309,35 @@ import { yaddaCore, yaddaLibrary, dictionaryTypes } from  'ya-done';
 
 const  dictionary = [
 {
-
 name:  'dataObject',
 type:  dictionaryTypes.TYPE_JSON,
-
-},{
-
+},
+{
 name:  'smallNumber'
 type: dictionaryTypes.TYPE_INTEGER,
-
-},{
-
+},
+{
 name:  'bigNumber'
 type: dictionaryTypes.TYPE_FLOAT,
-
 }
-
 ];
 
 yaddaCore(() =>
-
 yaddaLibrary(dictionary)
-
 .when('the browser navigates to github', function  loadGithub(next) {
-
 this.driver.get('http://github.com');
-
 next();
-
 })
-
 .then('the headers should not be hello world', next  => {
-
 expect('#site-container h1.heading').dom.to.not.contain.text('hello world');
-
-  
-
 next();
-
 })
-
 );
-
 ```
-
-  
 
 **install and run the project**
 
-  
-
 ```js
 npm  i
-
 npm  test
 ```

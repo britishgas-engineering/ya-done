@@ -67,8 +67,8 @@ function buildYadda(library, framework) {
                 }
               );
             }
-          );
-        }
+          );     
+      }
       )
     );
 }

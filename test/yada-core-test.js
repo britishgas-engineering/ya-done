@@ -26,3 +26,4 @@ describe('yadda-core : yadda function call returns configured yadda', () => {
     }).to.be.a('function', 'returns configured library as function');
   });
 });
+
