@@ -3,7 +3,8 @@
 
 **Ready to use yadda BBD test framework with selenium-webdriver and chai**
 
-### Version 1.5.0 removes the restriction of only being able to use Browserstack for continuous testing. See Continuous Testing config below
+## Version 1.5.0 - BREAKING CHANGE!!!!! Server must now be specified in yaddaCore when using any provider e.g. Browserstack, Perfecto
+### Removes the restriction of only being able to use Browserstack for continuous testing. See Continuous Testing config below
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
