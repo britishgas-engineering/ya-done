@@ -13,9 +13,9 @@ function innerDriverCore(framework) {
     } else if (framework.useBrowser) {
       action = frameworkBuilder.get;
     } else {
-      action = frameworkBuilder.getBrowserStack;
-    }
+      action = frameworkBuilder.getRemoteHost;
   }
+}
   return action(framework);
 }
 

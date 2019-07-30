@@ -27,12 +27,32 @@ describe('driver-core :', () => {
   });
 
   describe('framework is object framework prop is used', () => {
+    it('works for browserstack', () => {
+      driverCore = innerDriverCore({
+        server: 'http://hub-cloud.browserstack.com/wd/hub',
+        capabilities: {
+          browserName: 'Chrome',
+          browser_version: '10.0',
+          os: 'Windows',
+          os_version: '10',
+          resolution: '1024x768',
+        },
+      });
+      should.equal(
+        driverCore.framework,
+        'browserstack',
+        'library should be configured for browserstack'
+      );
+    })
+    
+    it('works for perfecto', () => {
     driverCore = innerDriverCore({
+      server: 'https://demo.perfectomobile.com/nexperience/perfectomobile/wd/hub/fast',
       capabilities: {
-        browserName: 'IE',
+        browserName: 'Chrome',
         browser_version: '10.0',
         os: 'Windows',
-        os_version: '8',
+        os_version: '10',
         resolution: '1024x768',
       },
     });
@@ -41,7 +61,8 @@ describe('driver-core :', () => {
 			'browserstack',
 			'library should be configured for browserstack'
 		);
-  });
+  })
+});
 
   describe('framework is object with useBrowser framework prop is used', () => {
     driverCore = innerDriverCore({

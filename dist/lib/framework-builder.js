@@ -38,9 +38,9 @@ function defaultDriver(capabilities) {
   return driver;
 }
 
-function buildBrowserStack(framework) {
+function buildRemoteHost(framework) {
   const driver = new webdriver.Builder()
-    .usingServer('http://hub-cloud.browserstack.com/wd/hub')
+    .usingServer(framework.server)
     .withCapabilities(framework.capabilities)
     .build();
   driver.framework = BROWSERSTACK;
@@ -62,8 +62,8 @@ const frameworks = {
   getLocalMobile(framework) {
     return buildLocalMobile(framework);
   },
-  getBrowserStack(framework) {
-    return framework.size ? buildSimple(framework) : buildBrowserStack(framework);
+  getRemoteHost(framework) {
+    return framework.size ? buildSimple(framework) : buildRemoteHost(framework);
   },
 };
 
