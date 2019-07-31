@@ -3,8 +3,9 @@
 
 **Ready to use yadda BBD test framework with selenium-webdriver and chai**
 
-## Version 1.5.0 - BREAKING CHANGE!!!!! Server must now be specified in yaddaCore when using any provider e.g. Browserstack, Perfecto
-### Removes the restriction of only being able to use Browserstack for continuous testing. See Continuous Testing config below
+## Version 1.5.0 - BREAKING CHANGE!!!!! Server must now be specified in yaddaCore when using any provider e.g. Browserstack, Perfecto. This removes the restriction of only being able to use Browserstack for continuous testing. See Continuous Testing config below
+
+## Version 1.6.0 - added two new properties which can be sent as part of yaddaCore (scenarioLevel and stepLevel.) See execution style below.
 
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
@@ -179,6 +180,12 @@ import  steps  from  './steps';
   });
 
 ```
+
+### Execution Style (new in v1.6)
+In v1.6.0, we have added two new properties which can be passed via yaddaCore. They are scenarioLevel and stepLevel.
+
+scenarioLevel will run the tests based on the scenario, meaning for example you can use mocha's retry.
+stepLevel will run the tests and will display each individual step used by that test.
 
 ### Adding a dictionary
 

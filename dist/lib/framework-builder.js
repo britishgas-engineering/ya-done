@@ -45,7 +45,7 @@ function buildRemoteHost(framework) {
     .build();
   driver.framework = BROWSERSTACK;
   return driver;
-}
+} 
 
 function buildSimple(framework) {
   const capabilities = framework && framework.capabilities;
