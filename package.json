@@ -12,9 +12,9 @@
 	"dependencies": {
 		"chai": "4.2.0",
 		"chai-webdriver": "^1.2.0",
-		"chromedriver": "77.0.0",
+		"chromedriver": "^77.0.0",
 		"mocha": "6.2.0",
-		"selenium-webdriver": "4.0.0-alpha.4",
+		"selenium-webdriver": "4.0.0-alpha.5",
 		"spy": "1.0.0",
 		"yadda": "2.1.0"
 	},
