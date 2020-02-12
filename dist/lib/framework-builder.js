@@ -6,6 +6,7 @@ const chaiWebdriver = require('chai-webdriver');
 
 const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
+const FIREFOXDRIVER = 'geckodriver';
 
 function baseDriver(capabilities) {
   const builtDriver = new webdriver.Builder();
@@ -45,13 +46,13 @@ function buildRemoteHost(framework) {
     .build();
   driver.framework = BROWSERSTACK;
   return driver;
-} 
+}
 
 function buildSimple(framework) {
   const capabilities = framework && framework.capabilities;
   const baseDriverBuilt = defaultDriver(capabilities);
 
-  baseDriverBuilt.framework = framework || CHROMEDRIVER;
+  baseDriverBuilt.framework = framework || CHROMEDRIVER || FIREFOXDRIVER;
   return baseDriverBuilt;
 }
 
