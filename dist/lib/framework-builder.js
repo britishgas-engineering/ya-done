@@ -13,14 +13,14 @@ function baseDriver(capabilities) {
   if (capabilities && capabilities.browserName) {
     builtDriver.forBrowser(capabilities.browserName);
   }
-  // builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
-  // if (capabilities && capabilities.args) {
-  //   if (capabilities.browserName === 'chrome') {
-  //     builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
-  //   } else if (capabilities.browserName === 'firefox') {
-  //     // builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.args));
-  //   }
-  // }
+  builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
+  if (capabilities && capabilities.args) {
+    if (capabilities.browserName === 'chrome') {
+      builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
+    } else if (capabilities.browserName === 'firefox') {
+      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions']));
+    }
+  }
   return builtDriver.build();
 }
 
@@ -53,7 +53,6 @@ function buildSimple(framework) {
   const baseDriverBuilt = defaultDriver(capabilities);
 
   baseDriverBuilt.framework = framework || CHROMEDRIVER || FIREFOXDRIVER;
-  console.log(baseDriverBuilt.framework);
   return baseDriverBuilt;
 }
 
