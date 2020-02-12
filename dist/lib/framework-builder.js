@@ -18,7 +18,7 @@ function baseDriver(capabilities) {
     if (capabilities.browserName === 'chrome') {
       builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
     } else if (capabilities.browserName === 'firefox') {
-      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions']));
+      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions'].args));
     }
   }
   return builtDriver.build();
