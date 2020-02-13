@@ -18,6 +18,9 @@ describe('driver-core :', () => {
 				'thenableWebDriverProxy',
 				'library should be a thenableWebDriverProxy function'
 			);
+      // if ((driverCore.framework === 'chromedriver') || (driverCore.framework === 'chromedriver')) {
+      //   should.ok(true, 'library should be configured for chromedriver or geckodriver');
+      // }
       should.equal(
 				driverCore.framework,
 				'chromedriver',
@@ -26,7 +29,7 @@ describe('driver-core :', () => {
     });
   });
 
-  describe('framework is object framework prop is used', () => {
+describe('framework is object framework prop is used', () => {
     it('works for browserstack', () => {
       driverCore = innerDriverCore({
         server: 'http://hub-cloud.browserstack.com/wd/hub',
@@ -44,7 +47,7 @@ describe('driver-core :', () => {
         'library should be configured for browserstack'
       );
     })
-    
+
     it('works for perfecto', () => {
     driverCore = innerDriverCore({
       server: 'https://demo.perfectomobile.com/nexperience/perfectomobile/wd/hub/fast',
@@ -64,23 +67,25 @@ describe('driver-core :', () => {
   })
 });
 
-  describe('framework is object with useBrowser framework prop is used', () => {
-    driverCore = innerDriverCore({
-      useBrowser: true,
-      capabilities: {
-        browserName: 'chrome',
-        resolution: '1024x768',
-        args: [
-          '--headless',
-          '--foo',
-          '--bar'
-        ]
-      },
-    });
-    should.equal(
-			driverCore.framework.useBrowser,
-			true,
-			'library should be configured for chrome browser'
-		);
+describe('framework is object with useBrowser framework prop is used', () => {
+    it ('triggers the local browser on passing useBrowser attributes', () => {
+      driverCore = innerDriverCore({
+        useBrowser: true,
+        capabilities: {
+          browserName: 'chrome',
+          resolution: '1024x768',
+          args: [
+            '--headless',
+            '--foo',
+            '--bar'
+          ]
+        },
+      });
+      should.equal(
+  			driverCore.framework.useBrowser,
+  			true,
+  			'library should be configured for chrome browser'
+  		);
+    })
   });
 });

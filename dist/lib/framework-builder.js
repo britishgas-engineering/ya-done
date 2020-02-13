@@ -6,6 +6,7 @@ const chaiWebdriver = require('chai-webdriver');
 
 const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
+const FIREFOXDRIVER = 'geckodriver';
 
 function baseDriver(capabilities) {
   const builtDriver = new webdriver.Builder();
@@ -17,7 +18,7 @@ function baseDriver(capabilities) {
     if (capabilities.browserName === 'chrome') {
       builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
     } else if (capabilities.browserName === 'firefox') {
-      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.args));
+      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions'].args));
     }
   }
   return builtDriver.build();
@@ -45,7 +46,7 @@ function buildRemoteHost(framework) {
     .build();
   driver.framework = BROWSERSTACK;
   return driver;
-} 
+}
 
 function buildSimple(framework) {
   const capabilities = framework && framework.capabilities;
