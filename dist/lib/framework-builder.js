@@ -17,7 +17,7 @@ function baseDriver(capabilities) {
     }
     builtDriver.forBrowser(capabilities.browserName);
   }
-  builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
+  // builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
   if (capabilities && capabilities.args) {
     if (capabilities.browserName === 'chrome') {
       builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
