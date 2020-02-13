@@ -39,7 +39,7 @@ function baseDriver(capabilities) {
     options.addArguments('--disable-gpu');
     options.addArguments('--window-size=1280,960');
 
-    const driver = await new webdriver.Builder()
+    const driver = new webdriver.Builder()
         .forBrowser('chrome')
         .setChromeOptions(options)
         .build();
