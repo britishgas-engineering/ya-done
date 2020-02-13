@@ -12,7 +12,7 @@ const FIREFOXDRIVER = 'geckodriver';
 function baseDriver(capabilities) {
   const builtDriver = new webdriver.Builder();
   if (capabilities && capabilities.browserName) {
-    if (capabilities.browserName === 'chrome') || (capabilities.browserName === 'chromium') {
+    if ((capabilities.browserName === 'chrome') || (capabilities.browserName === 'chromium')) {
       builtDriver.forBrowser('chrome');
     }
     builtDriver.forBrowser(capabilities.browserName);
