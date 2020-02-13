@@ -4,34 +4,47 @@ const firefox = require('selenium-webdriver/firefox');
 const chai = require('chai');
 const chromium = require('chromium');
 const chaiWebdriver = require('chai-webdriver');
+require('chromedriver');
 
 const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
 const FIREFOXDRIVER = 'geckodriver';
 
 function baseDriver(capabilities) {
-  const builtDriver = new webdriver.Builder();
-  if (capabilities && capabilities.browserName) {
-    if ((capabilities.browserName === 'chrome') || (capabilities.browserName === 'chromium')) {
-      builtDriver.forBrowser('chrome');
-    }
-    builtDriver.forBrowser(capabilities.browserName);
-  }
-  // builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
-  if (capabilities && capabilities.args) {
-    if (capabilities.browserName === 'chrome') {
-      builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
-    } else if (capabilities.browserName === 'firefox') {
-      builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions'].args));
-    }else if (capabilities.browserName === 'chromium') {
-      let options = new chrome.Options();
-          options.setChromeBinaryPath(chromium.path);
-          options.addArguments(capabilities.args);
-      builtDriver.setChromeOptions(options);
-    }
+  // const builtDriver = new webdriver.Builder();
+  // if (capabilities && capabilities.browserName) {
+  //   if ((capabilities.browserName === 'chrome') || (capabilities.browserName === 'chromium')) {
+  //     builtDriver.forBrowser('chrome');
+  //   }
+  //   builtDriver.forBrowser(capabilities.browserName);
+  // }
+  // // builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
+  // if (capabilities && capabilities.args) {
+  //   if (capabilities.browserName === 'chrome') {
+  //     builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
+  //   } else if (capabilities.browserName === 'firefox') {
+  //     builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions'].args));
+  //   }else if (capabilities.browserName === 'chromium') {
+  //     let options = new chrome.Options();
+  //         options.setChromeBinaryPath(chromium.path);
+  //         options.addArguments(capabilities.args);
+  //     builtDriver.setChromeOptions(options);
+  //   }
+  //
+  // }
 
-  }
-  return builtDriver.build();
+  let options = new chrome.Options();
+    options.setChromeBinaryPath(chromium.path);
+    options.addArguments('--headless');
+    options.addArguments('--disable-gpu');
+    options.addArguments('--window-size=1280,960');
+
+    const driver = await new webdriver.Builder()
+        .forBrowser('chrome')
+        .setChromeOptions(options)
+        .build();
+
+  return driver;
 }
 
 function buildLocalMobile(framework) {
