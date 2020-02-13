@@ -2,6 +2,7 @@ const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
 const chai = require('chai');
+const chromium = require('chromium');
 const chaiWebdriver = require('chai-webdriver');
 
 const CHROMEDRIVER = 'chromedriver';
@@ -11,6 +12,9 @@ const FIREFOXDRIVER = 'geckodriver';
 function baseDriver(capabilities) {
   const builtDriver = new webdriver.Builder();
   if (capabilities && capabilities.browserName) {
+    if (capabilities.browserName === 'chrome') || (capabilities.browserName === 'chromium') {
+      builtDriver.forBrowser('chrome');
+    }
     builtDriver.forBrowser(capabilities.browserName);
   }
   builtDriver.withCapabilities(capabilities || webdriver.Capabilities.chrome());
@@ -19,7 +23,13 @@ function baseDriver(capabilities) {
       builtDriver.setChromeOptions(new chrome.Options().addArguments(capabilities.args));
     } else if (capabilities.browserName === 'firefox') {
       builtDriver.setFirefoxOptions(new firefox.Options().addArguments(capabilities.alwaysMatch['moz:firefoxOptions'].args));
+    }else if (capabilities.browserName === 'chromium') {
+      let options = new chrome.Options();
+          options.setChromeBinaryPath(chromium.path);
+          options.addArguments(capabilities.args);
+      builtDriver.setChromeOptions(options);
     }
+
   }
   return builtDriver.build();
 }
