@@ -35,32 +35,7 @@ function buildYadda(library, framework) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
-  if (framework.scenarioLevel || framework.stepLevel === undefined) {
-    Yadda.plugins.mocha.ScenarioLevelPlugin.init();
-    const features = new Yadda.FeatureFileSearch('features');
-    const builtLibrary = defineWindowInLibrary(library, framework);
-    const yadda = Yadda.createInstance(
-      builtLibrary,
-      {
-        ctx: {},
-        driver: buildDriver(framework),
-        width: framework && framework.size ?
-          framework.size.width :
-          1024,
-        height: framework && framework.size ?
-          framework.size.height :
-          728,
-      }
-    );
-
-    return features.each(file =>
-      featureFile(file, (feature) => {
-        scenarios(feature.scenarios, function (scenario, done) {
-          yadda.run(scenario.steps, done);
-        })
-      })
-    )
-  } else if (framework.stepLevel) {
+  if (framework.stepLevel) {
     Yadda.plugins.mocha.StepLevelPlugin.init();
     const features = new Yadda.FeatureFileSearch('features');
     const builtLibrary = defineWindowInLibrary(library, framework);
@@ -70,11 +45,11 @@ function buildYadda(library, framework) {
         ctx: {},
         driver: buildDriver(framework),
         width: framework && framework.size ?
-          framework.size.width :
-          1024,
+        framework.size.width :
+        1024,
         height: framework && framework.size ?
-          framework.size.height :
-          728,
+        framework.size.height :
+        728,
       }
     );
     return features
@@ -96,7 +71,33 @@ function buildYadda(library, framework) {
           }
         )
       );
+  } else {
+    Yadda.plugins.mocha.ScenarioLevelPlugin.init();
+    const features = new Yadda.FeatureFileSearch('features');
+    const builtLibrary = defineWindowInLibrary(library, framework);
+    const yadda = Yadda.createInstance(
+      builtLibrary,
+      {
+        ctx: {},
+        driver: buildDriver(framework),
+        width: framework && framework.size ?
+        framework.size.width :
+        1024,
+        height: framework && framework.size ?
+        framework.size.height :
+        728,
+      }
+    );
+
+    return features.each(file =>
+      featureFile(file, (feature) => {
+        scenarios(feature.scenarios, function (scenario, done) {
+          yadda.run(scenario.steps, done);
+        })
+      })
+    )
   }
+
 }
 
 module.exports = buildYadda;
