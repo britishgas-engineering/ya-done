@@ -3,10 +3,6 @@
 
 **Ready to use yadda BBD test framework with selenium-webdriver and chai**
 
-## Version 1.5.0 - BREAKING CHANGE!!!!! Server must now be specified in yaddaCore when using any provider e.g. Browserstack, Perfecto. This removes the restriction of only being able to use Browserstack for continuous testing. See Continuous Testing config below
-
-## Version 1.6.0 - added two new properties which can be sent as part of yaddaCore (scenarioLevel and stepLevel.) See execution style below.
-
 [![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
 
 ```js
@@ -23,8 +19,10 @@ ya-done allows testing with the following devices or technologies:
 
 * Chromedriver
 * Geckodriver
-* Continuous Testing (Browserstack, Perfecto etc)
+* Continuous Testing (Browserstack, Perfecto, etc)
 * Appium
+
+Please check the configuration to launch Chrome and FireFox in Local environment
 
 ### Technologies Used
 
@@ -50,7 +48,58 @@ ya-done exposes "yaddaCore" which requires a step library to run
 
 The web-browser to be used for testing can be defined by either a string or configuration object.
 
-When using a configuration object the window size can also be set. Capabiltiies can also be set depending on the chosen browser as highlighted below for Chrome.
+When using a configuration object the window size can also be set. Capabiltiies can also be set depending on the chosen browser as highlighted below.
+
+***Chrome Browser***
+
+```js
+
+import { yaddaCore } from  'ya-done';
+import  steps  from  './steps';
+
+/* configure */
+yaddaCore(steps, {
+  useBrowser:  true,
+  capabilities: {
+    browserName:  'chrome',
+    args: [
+    '--disable-background-networking',
+    '--disable-background-timer-throttling',
+    '--disable-client-side-phishing-detection',
+    '--disable-default-apps',
+    '--disable-hang-monitor',
+    '--disable-popup-blocking',
+    '--disable-prompt-on-repost',
+    '--disable-sync',
+    '--metrics-recording-only',
+    '--no-first-run',
+    '--safebrowsing-disable-auto-update',
+    '--enable-automation',
+    '--password-store=basic',
+    '--use-mock-keychain',
+    '--user-data',
+    '--hide-scrollbars',
+    '--mute-audio',
+    '--disable-setuid-sandbox',
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-translate",
+    "--disable-logging",
+    "--headless",
+    "--no-sandbox",
+    "--remote-debugging-port=0",
+    "--window-size=1440,900",
+    "--disable-web-security",
+    "--disable-renderer-backgrounding",
+    "--disable-background-timer-throttling"
+    ]
+  }
+});
+```
+
+***FireFox Browser***
 
 ```js
 
@@ -61,40 +110,45 @@ import  steps  from  './steps';
 yaddaCore(steps, {
 useBrowser:  true,
 capabilities: {
-browserName:  'chrome',
-args: [
-'--disable-background-networking',
-'--disable-background-timer-throttling',
-'--disable-client-side-phishing-detection',
-'--disable-default-apps',
-'--disable-hang-monitor',
-'--disable-popup-blocking',
-'--disable-prompt-on-repost',
-'--disable-sync',
-'--metrics-recording-only',
-'--no-first-run',
-'--safebrowsing-disable-auto-update',
-'--enable-automation',
-'--password-store=basic',
-'--use-mock-keychain',
-'--user-data',
-'--hide-scrollbars',
-'--mute-audio',
-'--disable-setuid-sandbox',
-"--disable-dev-shm-usage",
-"--disable-gpu",
-"--no-default-browser-check",
-"--disable-extensions",
-"--disable-translate",
-"--disable-logging",
-"--headless",
-"--no-sandbox",
-"--remote-debugging-port=0",
-"--window-size=1440,900",
-"--disable-web-security",
-"--disable-renderer-backgrounding",
-"--disable-background-timer-throttling"
-]}
+  browserName:  'chrome',
+  "alwaysMatch": {
+        "moz:firefoxOptions": {
+        "args": [
+        '--disable-background-networking',
+        '--disable-background-timer-throttling',
+        '--disable-client-side-phishing-detection',
+        '--disable-default-apps',
+        '--disable-hang-monitor',
+        '--disable-popup-blocking',
+        '--disable-prompt-on-repost',
+        '--disable-sync',
+        '--metrics-recording-only',
+        '--no-first-run',
+        '--safebrowsing-disable-auto-update',
+        '--enable-automation',
+        '--password-store=basic',
+        '--use-mock-keychain',
+        '--user-data',
+        '--hide-scrollbars',
+        '--mute-audio',
+        '--disable-setuid-sandbox',
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--no-default-browser-check",
+        "--disable-extensions",
+        "--disable-translate",
+        "--disable-logging",
+        "--headless",
+        "--no-sandbox",
+        "--remote-debugging-port=0",
+        "--window-size=1440,900",
+        "--disable-web-security",
+        "--disable-renderer-backgrounding",
+        "--disable-background-timer-throttling"
+        ]
+      }
+    }
+  }
 });
 ```
 
@@ -102,8 +156,13 @@ args: [
 
 For any continuous product, add a configuration object as the second parameter in yaddaCore.
 
-[Documentation for setting up the configuration object in Browserstack.](https://www.browserstack.com/automate/node)
-[Documentation for setting up the configuration object in Perfecto.](https://developers.perfectomobile.com/display/PD/Automating+Web-apps+with+Perfecto)
+ **From version 1.5.0**
+
+Server must now be specified in yaddaCore when using any provider e.g. Browserstack, Perfecto. This removes the restriction of only being able to use Browserstack for continuous testing.
+
+- [Documentation for setting up the configuration object in Browserstack.](https://www.browserstack.com/automate/node)
+
+- [Documentation for setting up the configuration object in Perfecto.](https://developers.perfectomobile.com/display/PD/Automating+Web-apps+with+Perfecto)
 
 **Please note to run multiple tests (scenarios) the driver needs to be quit at the end of the last feature file**
 
@@ -125,7 +184,7 @@ yaddaCore(steps, {
   'browserstack.key': ${ your_pass },
   },
   });
-  
+
   /* Perfecto */
   yaddaCore(steps, {
   server: 'https://INSERT_PERFECTO_HOST_HERE/nexperience/perfectomobile/wd/hub/fast',
@@ -181,12 +240,29 @@ import  steps  from  './steps';
 
 ```
 
-### Execution Style (new in v1.6)
-In v1.6.0, we have added two new properties which can be passed via yaddaCore. They are scenarioLevel and stepLevel.
+### Execution Style:
 
-scenarioLevel will run the tests based on the scenario, meaning for example you can use mocha's retry.
-stepLevel will run the tests and will display each individual step used by that test.
+We have added a new property **stepLevel** which can be sent as a part of yaddaCore to trigger the test cases in the step level or Scenario Level.
 
+```js
+stepLevel:true --> will run the tests and will display each individual step used by that test.
+```
+
+```js
+stepLevel:false --> will run the tests at scenario level.  
+```
+**Config Example**
+```js
+yaddaCore(allSteps, {
+  useBrowser: true,
+  stepLevel: true,
+  capabilities: {
+    browserName: 'chrome',
+    args
+  }
+});
+
+```
 ### Adding a dictionary
 
 Dictionaries have been abstracted for simple use in ya-done. Dictionaries allow the use of [tables](https://acuminous.gitbooks.io/yadda-user-guide/en/feature-specs/example-tables.html) and [variables within steps](https://acuminous.gitbooks.io/yadda-user-guide/en/usage/step-libraries.html#step-aliases).
