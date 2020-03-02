@@ -31,7 +31,7 @@ function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-function buildYadda(library, framework) {
+const buildYadda = function(library, framework) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
@@ -88,7 +88,6 @@ function buildYadda(library, framework) {
         728,
       }
     );
-
     return features.each(file =>
       featureFile(file, (feature) => {
         scenarios(feature.scenarios, function (scenario, done) {
