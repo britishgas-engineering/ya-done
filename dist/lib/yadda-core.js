@@ -31,7 +31,7 @@ function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-function buildYadda(library, framework) {
+const test = function buildYadda(library, framework) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
@@ -97,7 +97,8 @@ function buildYadda(library, framework) {
       })
     )
   }
-  this.driver.quit();
 }
+
+console.log(test);
 
 module.exports = buildYadda;
