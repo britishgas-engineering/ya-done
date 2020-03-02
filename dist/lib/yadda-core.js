@@ -97,7 +97,7 @@ function buildYadda(library, framework) {
       })
     )
   }
-
+  this.driver.quit();
 }
 
 module.exports = buildYadda;
