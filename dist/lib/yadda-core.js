@@ -101,9 +101,10 @@ function buildYadda(library, framework) {
   }
 }
 
-function runWithYadda(library, framework) {
-  const test = buildYadda(library, framework);
+function async runWithYadda(library, framework) {
+  const test = await buildYadda(library, framework);
   console.log(test);
+  console.log('testtt->', this);
 }
 
 module.exports = runWithYadda;
