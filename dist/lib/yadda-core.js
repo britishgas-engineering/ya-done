@@ -31,15 +31,15 @@ function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-function buildYadda(library, framework) {
+async function buildYadda(library, framework) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
   if (framework.stepLevel) {
     Yadda.plugins.mocha.StepLevelPlugin.init();
-    const features = new Yadda.FeatureFileSearch('features');
-    const builtLibrary = defineWindowInLibrary(library, framework);
-    const yadda = Yadda.createInstance(
+    const features = await new Yadda.FeatureFileSearch('features');
+    const builtLibrary = await defineWindowInLibrary(library, framework);
+    const yadda = await Yadda.createInstance(
       builtLibrary,
       {
         ctx: {},
@@ -63,7 +63,7 @@ function buildYadda(library, framework) {
                 steps(
                   scenario.steps,
                   (step, done) => {
-                    yadda.run(step, done);
+                    await yadda.run(step, done);
                   }
                 );
               }
@@ -74,9 +74,9 @@ function buildYadda(library, framework) {
       return yadda;
   } else {
     Yadda.plugins.mocha.ScenarioLevelPlugin.init();
-    const features = new Yadda.FeatureFileSearch('features');
-    const builtLibrary = defineWindowInLibrary(library, framework);
-    const yadda = Yadda.createInstance(
+    const features = await new Yadda.FeatureFileSearch('features');
+    const builtLibrary = await defineWindowInLibrary(library, framework);
+    const yadda = await Yadda.createInstance(
       builtLibrary,
       {
         ctx: {},
@@ -93,7 +93,7 @@ function buildYadda(library, framework) {
     features.each(file =>
       featureFile(file, (feature) => {
         scenarios(feature.scenarios, function (scenario, done) {
-          yadda.run(scenario.steps, done);
+          await yadda.run(scenario.steps, done);
         })
       })
     );
@@ -103,7 +103,7 @@ function buildYadda(library, framework) {
 
 async function runWithYadda(library, framework) {
   const test = await buildYadda(library, framework);
-  console.log(await test);
+  console.log(await test.yadda.ctx);
   console.log('testtt->', this);
 }
 
