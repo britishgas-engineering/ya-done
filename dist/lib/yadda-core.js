@@ -52,7 +52,7 @@ function buildYadda(library, framework) {
         728,
       }
     );
-    return features
+    features
       .each(
         file => featureFile(
           file,
@@ -71,6 +71,7 @@ function buildYadda(library, framework) {
           }
         )
       );
+      return yadda;
   } else {
     Yadda.plugins.mocha.ScenarioLevelPlugin.init();
     const features = new Yadda.FeatureFileSearch('features');
@@ -89,20 +90,20 @@ function buildYadda(library, framework) {
       }
     );
 
-    return features.each(file =>
+    features.each(file =>
       featureFile(file, (feature) => {
         scenarios(feature.scenarios, function (scenario, done) {
           yadda.run(scenario.steps, done);
         })
       })
-    )
+    );
+    return yadda;
   }
-
 }
 
 function runWithYadda(library, framework) {
-  buildYadda(library, framework);
-  this.driver.quit();
+  const test = buildYadda(library, framework);
+  console.log(test);
 }
 
 module.exports = runWithYadda;
