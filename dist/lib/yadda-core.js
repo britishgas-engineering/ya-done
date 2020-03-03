@@ -2,7 +2,7 @@
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
 
-async function defineWindowInLibrary(library, framework) {
+function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
     library.define(
       'a web browser',
@@ -31,15 +31,15 @@ async function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-async function buildYadda(library, framework) {
+function buildYadda(library, framework) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
   if (framework.stepLevel) {
     Yadda.plugins.mocha.StepLevelPlugin.init();
-    const features = await new Yadda.FeatureFileSearch('features');
-    const builtLibrary = await defineWindowInLibrary(library, framework);
-    const yadda = await Yadda.createInstance(
+    const features = new Yadda.FeatureFileSearch('features');
+    const builtLibrary = defineWindowInLibrary(library, framework);
+    const yadda = Yadda.createInstance(
       builtLibrary,
       {
         ctx: {},
@@ -52,7 +52,7 @@ async function buildYadda(library, framework) {
         728,
       }
     );
-    features
+    return features
       .each(
         file => featureFile(
           file,
@@ -71,12 +71,11 @@ async function buildYadda(library, framework) {
           }
         )
       );
-      return yadda;
   } else {
     Yadda.plugins.mocha.ScenarioLevelPlugin.init();
-    const features = await new Yadda.FeatureFileSearch('features');
-    const builtLibrary = await defineWindowInLibrary(library, framework);
-    const yadda = await Yadda.createInstance(
+    const features = new Yadda.FeatureFileSearch('features');
+    const builtLibrary = defineWindowInLibrary(library, framework);
+    const yadda = Yadda.createInstance(
       builtLibrary,
       {
         ctx: {},
@@ -90,21 +89,14 @@ async function buildYadda(library, framework) {
       }
     );
 
-    features.each(file =>
+    return features.each(file =>
       featureFile(file, (feature) => {
         scenarios(feature.scenarios, function (scenario, done) {
           yadda.run(scenario.steps, done);
         })
       })
     );
-    return yadda;
   }
 }
 
-async function runWithYadda(library, framework) {
-  const test = await buildYadda(library, framework);
-  console.log(await test.yadda.ctx);
-  console.log('testtt->', this);
-}
-
-module.exports = runWithYadda;
+module.exports = buildYadda;
