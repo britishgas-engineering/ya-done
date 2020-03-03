@@ -2,7 +2,7 @@
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
 
-function defineWindowInLibrary(library, framework) {
+async function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
     library.define(
       'a web browser',
@@ -63,7 +63,7 @@ async function buildYadda(library, framework) {
                 steps(
                   scenario.steps,
                   (step, done) => {
-                    await yadda.run(step, done);
+                  yadda.run(step, done);
                   }
                 );
               }
@@ -93,7 +93,7 @@ async function buildYadda(library, framework) {
     features.each(file =>
       featureFile(file, (feature) => {
         scenarios(feature.scenarios, function (scenario, done) {
-          await yadda.run(scenario.steps, done);
+          yadda.run(scenario.steps, done);
         })
       })
     );
