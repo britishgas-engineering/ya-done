@@ -7,8 +7,10 @@ const dictionaryTypes = {
   TYPE_FLOAT: constants.TYPE_FLOAT,
   TYPE_JSON: constants.TYPE_JSON,
 };
+const readScenariosFromFeatureFiles = require('./lib/yadda-featureDetails');
 module.exports = {
   yaddaCore: buildYadda,
+  countScenarios:readScenariosFromFeatureFiles,
   yaddaLibrary: yaddaLibraryBuilder,
   webdriver,
   dictionaryTypes,
