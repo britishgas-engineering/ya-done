@@ -425,3 +425,8 @@ next();
 npm  i
 npm  test
 ```
+
+**how to consume reading scenario count from feature files***
+In local index.js:
+1. import the count scenarios function --> import {countScenarios} from 'ya-done';
+2. countScenarios(filePath)  (Where file path is where your feature files are stored)
