@@ -164,10 +164,7 @@ Server must now be specified in yaddaCore when using any provider e.g. Browserst
 
 - [Documentation for setting up the configuration object in Perfecto.](https://developers.perfectomobile.com/display/PD/Automating+Web-apps+with+Perfecto)
 
-**Please note to run multiple tests (scenarios) the driver needs to be quit at the end of the last feature file**
-
 ```js
-
 import { yaddaCore } from  'ya-done';
 import  steps  from  './steps';
 
@@ -176,7 +173,7 @@ yaddaCore(steps, {
   server: 'http://hub-cloud.browserstack.com/wd/hub',
   capabilities: {
     browserName: 'Chrome', // other browsers available
-    browser_version: '62.0',
+    browser_version: '80', // if we don't pass it will pick latest
     os: 'Windows',
     os_version: '8',
     resolution: '1024x768',
@@ -192,7 +189,7 @@ yaddaCore(steps, {
       platformName: 'Windows',
       platformVersion: '10',
       browserName: 'Chrome',
-      browserVersion: '74',
+      browserVersion: '80',
       resolution: '1280x1024',
     securityToken: 'INSERT_SECURITY_TOKEN'
   },
@@ -278,27 +275,25 @@ Pass in an array of objects to the `yaddaLibrary`. Objects need to have a `name`
 **Example Dictionary**
 
 ```js
-
 import { dictionaryTypes } from  'ya-done';
 
 // define a dictionary
 const  dictionary = [
-{
-name:  'dataObject',
-type:  dictionaryTypes.TYPE_JSON,
+  {
+  name:  'dataObject',
+  type:  dictionaryTypes.TYPE_JSON,
 
-},{
+  },{
 
-name:  'smallNumber'
-type: dictionaryTypes.TYPE_INTEGER,
+  name:  'smallNumber'
+  type: dictionaryTypes.TYPE_INTEGER,
 
-},{
+  },{
 
-name:  'bigNumber'
-type: dictionaryTypes.TYPE_FLOAT,
+  name:  'bigNumber'
+  type: dictionaryTypes.TYPE_FLOAT,
 
-}
-
+  }
 ];
 ```
 
@@ -392,30 +387,30 @@ import { yaddaCore, yaddaLibrary, dictionaryTypes } from  'ya-done';
 // define a dictionary
 
 const  dictionary = [
-{
-name:  'dataObject',
-type:  dictionaryTypes.TYPE_JSON,
-},
-{
-name:  'smallNumber'
-type: dictionaryTypes.TYPE_INTEGER,
-},
-{
-name:  'bigNumber'
-type: dictionaryTypes.TYPE_FLOAT,
-}
+  {
+  name:  'dataObject',
+  type:  dictionaryTypes.TYPE_JSON,
+  },
+  {
+  name:  'smallNumber'
+  type: dictionaryTypes.TYPE_INTEGER,
+  },
+  {
+  name:  'bigNumber'
+  type: dictionaryTypes.TYPE_FLOAT,
+  }
 ];
 
 yaddaCore(() =>
-yaddaLibrary(dictionary)
-.when('the browser navigates to github', function  loadGithub(next) {
-this.driver.get('http://github.com');
-next();
-})
-.then('the headers should not be hello world', next  => {
-expect('#site-container h1.heading').dom.to.not.contain.text('hello world');
-next();
-})
+  yaddaLibrary(dictionary)
+  .when('the browser navigates to github', function  loadGithub(next) {
+  this.driver.get('http://github.com');
+  next();
+  })
+  .then('the headers should not be hello world', next  => {
+  expect('#site-container h1.heading').dom.to.not.contain.text('hello world');
+  next();
+  })
 );
 ```
 
@@ -426,7 +421,9 @@ npm  i
 npm  test
 ```
 
-**how to consume reading scenario count from feature files***
+**how to consume reading scenario count from feature files**
+
 In local index.js:
-1. import the count scenarios function --> import {countScenarios} from 'ya-done';
-2. countScenarios(filePath)  (Where file path is where your feature files are stored)
+-  import the count scenarios function -->
+`import {countScenarios} from 'ya-done';`
+-  countScenarios(**filePath**)  (Where file path is where your feature files are stored)
