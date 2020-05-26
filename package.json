@@ -11,7 +11,6 @@
 	},
 	"dependencies": {
 		"chai": "4.2.0",
-		"chai-webdriver": "1.2.0",
 		"chromedriver": "81.0.0",
 		"geckodriver": "1.19.1",
 		"mocha": "^7.1.2",

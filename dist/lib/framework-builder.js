@@ -1,8 +1,6 @@
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
-const chai = require('chai');
-const chaiWebdriver = require('chai-webdriver');
 
 const CHROMEDRIVER = 'chromedriver';
 const BROWSERSTACK = 'browserstack';
@@ -35,7 +33,6 @@ function buildLocalMobile(framework) {
 
 function defaultDriver(capabilities) {
   const driver = baseDriver(capabilities);
-  chai.use(chaiWebdriver(driver));
   return driver;
 }
 
