@@ -27,7 +27,7 @@ Please check the configuration to launch Chrome and FireFox in Local environment
 ### Technologies Used
 
 * Pre-configured _[yadda](https://github.com/acuminous/yadda)_
-* Pre-configured _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver)_
+* Pre-configured _[chai-webdriver](http://chaijs.com/plugins/chai-webdriver) -> _**DEPRECATED FROM Ya-done 2.1.0**_
 
 Below are some Continuous Testing providers which have been used with ya-done
 * _[BrowserStack](https://www.browserstack.com)_
