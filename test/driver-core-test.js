@@ -54,31 +54,6 @@ describe('framework is object with useBrowser framework prop is used', () => {
           );
        done();
     })
-    it ('triggers the local browser on passing useBrowser attributes for firefox', (done) => {
-        driverCore = innerDriverCore({
-          useBrowser: true,
-          capabilities: {
-            browserName: 'firefox',
-            resolution: '1024x768',
-            alwaysMatch: {
-                'moz:firefoxOptions': {
-                  args: [
-                    '--headless',
-                    '--foo',
-                    '--bar'
-                  ]
-                }
-              }
-          }
-        });
-        var browserComparison = should.equal(
-          driverCore.framework.useBrowser,
-          true,
-          'library should be configured for chrome browser'
-        );
-        driverCore.quit();
-        setTimeout(done(), 10000);
-      })
   })
   
 });
