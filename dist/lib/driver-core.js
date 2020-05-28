@@ -14,8 +14,8 @@ function innerDriverCore(framework) {
       action = frameworkBuilder.get;
     } else {
       action = frameworkBuilder.getRemoteHost;
+    }
   }
-}
   return action(framework);
 }
 
