@@ -11,19 +11,24 @@ describe('driver-core :', () => {
   });
 
   describe('returns expected configured driver library', () => {
-    it('built driver core library is a webdriver chai runner', (done) => {
-      driverCore = innerDriverCore();
+    it('validate the driver core constructor name', (done) => {
+      driverCore = innerDriverCore({
+        useBrowser: true,
+        capabilities: {
+          browserName: 'chrome',
+          resolution: '1024x768',
+          args: [
+            '--headless',
+            '--foo',
+            '--bar'
+          ]
+        }
+      });
       should.equal(
 				driverCore.constructor.name,
 				'thenableWebDriverProxy',
 				'library should be a thenableWebDriverProxy function'
             );
-      should.equal(
-				driverCore.framework,
-				'chromedriver',
-				'library should be configured for chromedriver'
-            );
-      driverCore.quit();
       done();
     });
   });
