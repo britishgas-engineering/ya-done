@@ -76,7 +76,6 @@ describe('framework is object with useBrowser framework prop is used', () => {
                 true,
                 'library should be configured for chrome browser'
             );
-        driverCore.quit();
         done();
       })
   })
