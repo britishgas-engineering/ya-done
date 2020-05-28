@@ -8,6 +8,8 @@ cache:
 before_install:
   - npm config set registry http://registry.npmjs.org/
   - npm config set spin false
+addons:
+  chrome: stable
 install:
   - npm install
 script:
