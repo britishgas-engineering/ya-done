@@ -71,12 +71,13 @@ describe('framework is object with useBrowser framework prop is used', () => {
               }
           }
         });
-        should.equal(
-                driverCore.framework.useBrowser,
-                true,
-                'library should be configured for chrome browser'
-            );
-        done();
+        var browserComparison = should.equal(
+          driverCore.framework.useBrowser,
+          true,
+          'library should be configured for chrome browser'
+        );
+        driverCore.quit();
+        setTimeout(done(), 10000);
       })
   })
   
