@@ -1,6 +1,7 @@
 /* global featureFile, scenarios, steps */
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
+var mocha = require('mocha');
 
 function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
@@ -63,7 +64,7 @@ function buildYadda(library, framework) {
                 steps(
                   scenario.steps,
                   (step, done) => {
-                    yadda.run(step, done);
+                    yadda.run(step, { mocha: this }, done);
                   }
                 );
               }
@@ -92,7 +93,7 @@ function buildYadda(library, framework) {
     return features.each(file =>
       featureFile(file, (feature) => {
         scenarios(feature.scenarios, function (scenario, done) {
-          yadda.run(scenario.steps, done);
+          yadda.run(scenario.steps, { mocha: this }, done);
         })
       })
     )
