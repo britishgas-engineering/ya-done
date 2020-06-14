@@ -43,7 +43,6 @@ function buildYadda(library, framework) {
     const yadda = Yadda.createInstance(
       builtLibrary,
       {
-        mocha: this,
         ctx: {},
         driver: buildDriver(framework),
         width: framework && framework.size ?
