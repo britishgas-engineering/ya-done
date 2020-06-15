@@ -1,6 +1,7 @@
 /* global featureFile, scenarios, steps */
 const Yadda = require('yadda');
 const buildDriver = require('./driver-core');
+var mocha = require('mocha');
 
 function defineWindowInLibrary(library, framework) {
   if (typeof framework === 'object' && !Array.isArray(framework)) {
@@ -52,25 +53,15 @@ function buildYadda(library, framework) {
         728,
       }
     );
-    return features
-      .each(
-        file => featureFile(
-          file,
-          (feature) => {
-            scenarios(
-              feature.scenarios,
-              (scenario) => {
-                steps(
-                  scenario.steps,
-                  (step, done) => {
-                    yadda.run(step, done);
-                  }
-                );
-              }
-            );
-          }
-        )
-      );
+    return features.each(function(file) {
+      featureFile(file, function(feature) {
+        scenarios(feature.scenarios, function(scenario) {
+          steps(scenario.steps, function(step, done) {
+            yadda.run(step, { mocha: this }, done);
+          });
+        });
+      });
+    });
   } else {
     Yadda.plugins.mocha.ScenarioLevelPlugin.init();
     const features = new Yadda.FeatureFileSearch('features');
@@ -89,15 +80,20 @@ function buildYadda(library, framework) {
       }
     );
 
-    return features.each(file =>
-      featureFile(file, (feature) => {
-        scenarios(feature.scenarios, function (scenario, done) {
-          yadda.run(scenario.steps, done);
-        })
-      })
-    )
+    return features.each(function(file) {
+      featureFile(file, function(feature) {
+        scenarios(feature.scenarios, function(scenario, done) {
+            yadda.run(scenario.steps, { mocha: this }, done);
+        });
+      });
+    });
   }
 
 }
 
 module.exports = buildYadda;
+
+
+
+
+
