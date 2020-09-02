@@ -173,7 +173,7 @@ yaddaCore(steps, {
   server: 'http://hub-cloud.browserstack.com/wd/hub',
   capabilities: {
     browserName: 'Chrome', // other browsers available
-    browser_version: '80', // if we don't pass it will pick latest
+    browser_version: '85', // if we don't pass it will pick latest
     os: 'Windows',
     os_version: '8',
     resolution: '1024x768',
@@ -189,7 +189,7 @@ yaddaCore(steps, {
       platformName: 'Windows',
       platformVersion: '10',
       browserName: 'Chrome',
-      browserVersion: '80',
+      browserVersion: '85',
       resolution: '1280x1024',
     securityToken: 'INSERT_SECURITY_TOKEN'
   },

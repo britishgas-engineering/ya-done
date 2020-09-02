@@ -1,6 +1,6 @@
 {
 	"name": "ya-done",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Ready to use yadda - selenium-webdriver - chai framework",
 	"repository": "https://github.com/britishgas-engineering/ya-done",
 	"author": "Biplav Ghosal",
@@ -11,7 +11,7 @@
 	},
 	"dependencies": {
 		"chai": "4.2.0",
-		"chromedriver": "83.0.0",
+		"chromedriver": "85.0.0",
 		"geckodriver": "1.19.1",
 		"mocha": "8.0.1",
 		"selenium-webdriver": "4.0.0-alpha.7",
