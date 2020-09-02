@@ -17,7 +17,7 @@ ya-done configures 'yadda' with chai with 'selenium-webdriver'. 'yadda' has been
 
 ya-done allows testing with the following devices or technologies:
 
-* Chromedriver
+* Chromedriver 
 * Geckodriver
 * Continuous Testing (Browserstack, Perfecto, etc)
 * Appium
@@ -181,7 +181,7 @@ yaddaCore(steps, {
   'browserstack.key': ${ your_pass },
   },
   });
- 
+
   /* Perfecto */
   yaddaCore(steps, {
   server: 'https://INSERT_PERFECTO_HOST_HERE/nexperience/perfectomobile/wd/hub/fast',
