@@ -181,7 +181,7 @@ yaddaCore(steps, {
   'browserstack.key': ${ your_pass },
   },
   });
-
+ 
   /* Perfecto */
   yaddaCore(steps, {
   server: 'https://INSERT_PERFECTO_HOST_HERE/nexperience/perfectomobile/wd/hub/fast',
