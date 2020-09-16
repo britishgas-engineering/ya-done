@@ -32,13 +32,14 @@ function defineWindowInLibrary(library, framework) {
   return library;
 }
 
-function buildYadda(library, framework) {
+function buildYadda(library, framework, featuresPath) {
   if (library === null || library === undefined) {
     throw new Error('step library has not been defined please write some steps');
   }
   if (framework.stepLevel) {
+    const absoluteFeaturesPath = (featuresPath === undefined) ? 'features' : featuresPath;
     Yadda.plugins.mocha.StepLevelPlugin.init();
-    const features = new Yadda.FeatureFileSearch('features');
+    const features = new Yadda.FeatureFileSearch(absoluteFeaturesPath);
     const builtLibrary = defineWindowInLibrary(library, framework);
     const yadda = Yadda.createInstance(
       builtLibrary,
@@ -63,8 +64,9 @@ function buildYadda(library, framework) {
       });
     });
   } else {
+    const absoluteFeaturesPath = (featuresPath === undefined) ? 'features' : featuresPath;
     Yadda.plugins.mocha.ScenarioLevelPlugin.init();
-    const features = new Yadda.FeatureFileSearch('features');
+    const features = new Yadda.FeatureFileSearch(absoluteFeaturesPath);
     const builtLibrary = defineWindowInLibrary(library, framework);
     const yadda = Yadda.createInstance(
       builtLibrary,
