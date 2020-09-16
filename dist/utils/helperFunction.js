@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+const assert = require('chai');
 const webdriver = require('selenium-webdriver');
 const {By, until} = webdriver;
 
