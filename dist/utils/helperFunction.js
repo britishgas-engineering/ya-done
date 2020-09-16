@@ -202,7 +202,7 @@ async function waitOneSec() {
 }
 
 //Function to sleep for short time for loading the page 3 seconds is default value
-async function WaitForPageLoad(duration) {
+async function waitForPageLoad(duration) {
   const time = duration === undefined ? 3000 : duration;
   await this.driver.sleep(time);
 }
@@ -246,7 +246,7 @@ module.exports = {
   clickElement: clickElement,
   getCurrentUrl: getCurrentUrl,
   findElements: findElements,
-  WaitForPageLoad: WaitForPageLoad,
+  waitForPageLoad: waitForPageLoad,
   enterValue: enterValue,
   scrollInto: scrollInto,
   waitOneSec: waitOneSec,
