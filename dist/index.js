@@ -8,10 +8,12 @@ const dictionaryTypes = {
   TYPE_JSON: constants.TYPE_JSON,
 };
 const readScenariosFromFeatureFiles = require('./lib/yadda-featureDetails');
+const helperFunction = require('./utils/helperFunction');
 module.exports = {
   yaddaCore: buildYadda,
   countScenarios:readScenariosFromFeatureFiles,
   yaddaLibrary: yaddaLibraryBuilder,
   webdriver,
   dictionaryTypes,
+  utils: helperFunction
 };
