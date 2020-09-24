@@ -131,7 +131,7 @@ async function clickElement(element) {
 
 //Function to enter Value
 async function enterValue(element, value) {
-  const ele = await findElement.call(element);
+  const ele = await findElement.call(this, element);
   try {
     ele.sendKeys(value);
     await this.driver.sleep(300);
