@@ -236,6 +236,18 @@ async function isElementPresent(element) {
   return result;
 }
 
+//Function to check if element is visible
+async function isElementVisible(element) {
+  try {
+    const ele = await findElement.call(this, element);
+    return await ele.isDisplayed();
+  } catch (error) {
+    return assert.ok(false,
+      `--> Error Description: Element is not Visible: ${error}`);
+  }
+
+}
+
 
 module.exports = {
   getByType: getByType,
@@ -252,5 +264,6 @@ module.exports = {
   scrollInto: scrollInto,
   waitOneSec: waitOneSec,
   isElementPresent: isElementPresent,
-  dropdownSelectByVisibleText: dropdownSelectByVisibleText
+  dropdownSelectByVisibleText: dropdownSelectByVisibleText,
+  isElementVisible: isElementVisible
 };
