@@ -31,13 +31,13 @@ async function getByType(locatorType) {
     return By.id;
   } else if (locatorTypeLowerCase === 'xpath') {
     return By.xpath;
-  } else if (locatorTypeLowerCase === 'className') {
+  } else if (locatorTypeLowerCase === 'classname') {
     return By.className;
-  } else if (locatorTypeLowerCase === 'linkText') {
+  } else if (locatorTypeLowerCase === 'linktext') {
     return By.linkText;
   } else if (locatorTypeLowerCase === 'name') {
     return By.name;
-  } else if (locatorTypeLowerCase === 'partialLinkText') {
+  } else if (locatorTypeLowerCase === 'partialLinktext') {
     return By.partialLinkText;
   } else {
     return 'LocatorType is not supported, Please check the input!!';
