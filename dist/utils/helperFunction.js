@@ -98,7 +98,7 @@ FUCNTIONS TO FIND ELEMENT OR ELEMENTS
 /* Function to find the elements based upon the locator and locatorType 
 This can be used to check whether the elements are present in a page or not by catching the length */
 async function findElements(elements) {
-  await waitForElements.call(this, element);
+  await waitForElements.call(this, elements);
   const byType = await getByType(elements.locatorType);
   const currentElements = await this.driver.findElements(byType(elements.locator));
   return currentElements;
@@ -124,6 +124,7 @@ FUCNTIONS TO CLICK ELEMENT, ENTER VALUE AND SELECT FROM DROPDOWN
 
 //Function to Click any element and sleeping or 500ms for sync
 async function clickElement(element) {
+  console.log(element);
   const ele = await findElement.call(this, element);
   ele.click();
   await this.driver.sleep(500);
