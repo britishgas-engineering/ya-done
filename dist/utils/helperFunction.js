@@ -231,6 +231,7 @@ async function scrollInto(element) {
 async function isElementPresent(element) {
   const byType = await getByType(element.locatorType);
   const elements = await this.driver.findElements(byType(element.locator));
+  console.log(elements.length);
   const result = (elements.length === 1) || (elements.length > 1);
   return result;
 }
