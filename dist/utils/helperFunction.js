@@ -31,7 +31,7 @@ async function getByType(locatorType) {
     return By.id;
   } else if (locatorTypeLowerCase === 'xpath') {
     return By.xpath;
-  } else if (locatorTypeLowerCase === 'classname') {
+  } else if (locatorTypeLowerCase === 'className') {
     return By.className;
   } else if (locatorTypeLowerCase === 'linkText') {
     return By.linkText;
