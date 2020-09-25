@@ -124,7 +124,6 @@ FUCNTIONS TO CLICK ELEMENT, ENTER VALUE AND SELECT FROM DROPDOWN
 
 //Function to Click any element and sleeping or 500ms for sync
 async function clickElement(element) {
-  console.log(element);
   const ele = await findElement.call(this, element);
   ele.click();
   await this.driver.sleep(500);
