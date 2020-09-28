@@ -425,5 +425,53 @@ npm  test
 
 In local index.js:
 -  import the count scenarios function -->
-`import {countScenarios} from 'ya-done';`
+```js
+import {countScenarios} from 'ya-done';
+```
 -  countScenarios(**filePath**)  (Where file path is where your feature files are stored)
+
+**how to consume the common selenium Functions**
+-  import the utils from ya-done 
+```js
+import { utils } from 'ya-done';
+```
+##### Available Functions: 
+
+- findElement
+- waitForElement
+- waitForElements
+- getTextOfElement
+- getAttribute
+- clickElement
+- getCurrentUrl
+- findElements
+- WaitForPageLoad
+- waitOneSec
+- enterValue
+- scrollInto
+- isElementPresent
+- dropdownSelectByVisibleText
+- isElementVisible
+
+> To Use these functions the QA team needs to store their webElements in the below fashion, and pass in the function
+
+**e.g.:**
+```js
+const elementOne = {
+  locator : '.classname .otherClasses',
+  locatorType: 'css'
+}
+
+const elementTwo = {
+  locator : '//div[@name='test'],
+  locatorType: 'xpath'
+}
+```
+
+Then call the function like 
+
+```js
+import { utils } from 'ya-done'
+await utils.ClickElement.call(this, elementOne);
+await utils.getTextOfElement.call(this, elementTwo);
+```
