@@ -451,6 +451,7 @@ import { utils } from 'ya-done';
 - scrollInto
 - isElementPresent
 - dropdownSelectByVisibleText
+- isElementVisible
 
 > To Use these functions the QA team needs to store their webElements in the below fashion, and pass in the function
 
@@ -471,6 +472,6 @@ Then call the function like
 
 ```js
 import { utils } from 'ya-done'
-await utils.findElement.call(this, elementOne);
 await utils.ClickElement.call(this, elementOne);
+await utils.getTextOfElement.call(this, elementTwo);
 ```
