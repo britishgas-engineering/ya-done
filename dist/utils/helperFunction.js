@@ -129,6 +129,13 @@ async function clickElement(element) {
   await this.driver.sleep(500);
 }
 
+//Function to Double Click any element and sleeping or 500ms for sync
+async function doubleClickElement(element) {
+  const ele = await findElement.call(this, element);
+  ele.doubleClick();
+  await this.driver.sleep(500);
+}
+
 //Function to enter Value
 async function enterValue(element, value) {
   const ele = await findElement.call(this, element);
@@ -256,6 +263,7 @@ module.exports = {
   getTextOfElement: getTextOfElement,
   getAttribute: getAttribute,
   clickElement: clickElement,
+  doubleClickElement: doubleClickElement,
   getCurrentUrl: getCurrentUrl,
   findElements: findElements,
   waitForPageLoad: waitForPageLoad,

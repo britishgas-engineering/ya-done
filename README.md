@@ -443,6 +443,7 @@ import { utils } from 'ya-done';
 - getTextOfElement
 - getAttribute
 - clickElement
+- doubleClickElement
 - getCurrentUrl
 - findElements
 - WaitForPageLoad
