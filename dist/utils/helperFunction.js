@@ -132,7 +132,7 @@ async function clickElement(element) {
 //Function to Double Click any element and sleeping or 500ms for sync
 async function doubleClickElement(element) {
   const ele = await findElement.call(this, element);
-  ele.doubleClick();
+  ele.doubleClick().build().perform();
   await this.driver.sleep(500);
 }
 
