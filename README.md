@@ -445,7 +445,7 @@ import { utils } from 'ya-done';
 - clickElement
 - getCurrentUrl
 - findElements
-- WaitForPageLoad
+- waitForPageLoad
 - waitOneSec
 - enterValue
 - scrollInto
@@ -472,6 +472,6 @@ Then call the function like
 
 ```js
 import { utils } from 'ya-done'
-await utils.ClickElement.call(this, elementOne);
+await utils.clickElement.call(this, elementOne);
 await utils.getTextOfElement.call(this, elementTwo);
 ```
