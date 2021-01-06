@@ -116,6 +116,40 @@ async function findElement(element) {
   }
 }
 
+/* How to use the below shadow root Fucntion 
+https://github.com/britishgas-engineering/ya-done/wiki/How-to-Use-the-Shadow-Root-Functions
+*/
+/* 
+-----------------------------------------------------------------
+FUCNTIONS TO FIND SHADOW ELEMENT OR ELEMENTS
+-----------------------------------------------------------------
+*/
+
+/* Function to find the complete shadow root from shadow Host*/
+async function getShadowRoot(element) {
+  let shadowHost = await findElement.call(this, element);
+  return this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
+}
+
+/* Function to get elements inside shadow root */
+async function getShadowRootElement(shadowRoot, element) {
+  const byType = await getByType(element.locatorType);
+  return await shadowRoot.findElement(byType(element.locator));
+}
+
+/* Function to Click elements inside shadow root */
+async function clickShadowRootElement(shadowRoot, element) {
+  let shadowRootElement = await getShadowRootElement(shadowRoot, element);
+  await this.driver.executeScript("arguments[0].click();", shadowRootElement);
+}
+
+/* Function to get innerText of elements inside shadow root */
+async function getInnerTextOfShadowRootElement(shadowRoot, element) {
+  let shadowRootElement = await getShadowRootElement(shadowRoot, element);
+  await this.driver.executeScript("arguments[0].innerText;", shadowRootElement);
+}
+
+
 /* 
 -----------------------------------------------------------------
 FUCNTIONS TO CLICK ELEMENT, ENTER VALUE AND SELECT FROM DROPDOWN
@@ -264,5 +298,8 @@ module.exports = {
   waitOneSec: waitOneSec,
   isElementPresent: isElementPresent,
   dropdownSelectByVisibleText: dropdownSelectByVisibleText,
-  isElementVisible: isElementVisible
+  isElementVisible: isElementVisible,
+  getShadowRoot: getShadowRoot,
+  clickShadowRootElement: clickShadowRootElement,
+  getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement
 };

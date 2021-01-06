@@ -452,6 +452,9 @@ import { utils } from 'ya-done';
 - isElementPresent
 - dropdownSelectByVisibleText
 - isElementVisible
+- getShadowRoot
+- clickShadowRootElement
+- getInnerTextOfShadowRootElement
 
 > To Use these functions the QA team needs to store their webElements in the below fashion, and pass in the function
 
