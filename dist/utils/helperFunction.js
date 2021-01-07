@@ -125,30 +125,32 @@ FUCNTIONS TO FIND SHADOW ELEMENT OR ELEMENTS
 -----------------------------------------------------------------
 */
 
-/* Function to find the complete shadow root from shadow Host*/
-async function getShadowRoot(element) {
-  let shadowHost = await findElement.call(this, element);
-  return this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
-}
-
-/* Function to get elements inside shadow root */
-async function getShadowRootElement(shadowRoot, element) {
-  const byType = await getByType(element.locatorType);
-  return await shadowRoot.findElement(byType(element.locator));
-}
-
-/* Function to Click elements inside shadow root */
-async function clickShadowRootElement(shadowRoot, element) {
-  let shadowRootElement = await getShadowRootElement(shadowRoot, element);
-  await this.driver.executeScript("arguments[0].click();", shadowRootElement);
-}
-
 /* Function to get innerText of elements inside shadow root */
-async function getInnerTextOfShadowRootElement(shadowRoot, element) {
-  let shadowRootElement = await getShadowRootElement(shadowRoot, element);
-  await this.driver.executeScript("arguments[0].innerText;", shadowRootElement);
+async function getInnerTextOfShadowRootElement(shadowHostElement, shadowRootElement) {
+  const shadowHost = await findElement.call(this, shadowHostElement);
+  const shadowRoot = await this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
+  const byType = await getByType(shadowRootElement.locatorType);
+  const shadowRootElementFromWeb = await shadowRoot.findElement(byType(shadowRootElement.locator));
+  return await this.driver.executeScript("return arguments[0].innerText;", shadowRootElementFromWeb);
 }
 
+async function clickShadowRootElement(shadowHostElement, shadowRootElement){
+  const shadowHost = await findElement.call(this, shadowHostElement);
+  const shadowRoot = await this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
+  const byType = await getByType(shadowRootElement.locatorType);
+  const shadowRootElementFromWeb = await shadowRoot.findElement(byType(shadowRootElement.locator));
+  await this.driver.executeScript("arguments[0].click();", shadowRootElementFromWeb);
+}
+
+async function clickShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
+  const clickOperation = 'document.querySelector(`'+shadowHostSelector+'`).shadowRoot.querySelector(`'+shadowELementSelector+'`).click();'
+  await this.driver.executeScript(clickOperation);
+}
+
+async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
+  const innerTextOperation = 'document.querySelector(`'+shadowHostSelector+'`).shadowRoot.querySelector(`'+shadowELementSelector+'`).innerText;'
+  return await this.driver.executeScript(innerTextOperation);
+}
 
 /* 
 -----------------------------------------------------------------
@@ -299,7 +301,8 @@ module.exports = {
   isElementPresent: isElementPresent,
   dropdownSelectByVisibleText: dropdownSelectByVisibleText,
   isElementVisible: isElementVisible,
-  getShadowRoot: getShadowRoot,
   clickShadowRootElement: clickShadowRootElement,
-  getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement
+  getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement,
+  clickShadowRootElementByCssSelector: clickShadowRootElementByCssSelector,
+  getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector
 };
