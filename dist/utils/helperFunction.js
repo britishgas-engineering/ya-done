@@ -155,7 +155,7 @@ async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, sh
 }
 
 /* Function to perform Jquery Action */
-export async function performJqueryAction(action) {
+async function performJqueryAction(action) {
   try {
     await this.driver.executeScript(action);
     await this.driver.sleep(200);
