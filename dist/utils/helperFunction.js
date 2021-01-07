@@ -150,10 +150,21 @@ async function clickShadowRootElementByCssSelector(shadowHostSelector, shadowELe
 
 async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
   const innerTextOperation = 
-  'document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).innerText;'
+  'return document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).innerText;'
   return await this.driver.executeScript(innerTextOperation);
 }
 
+/* Function to perform Jquery Action */
+export async function performJqueryAction(action) {
+  try {
+    await this.driver.executeScript(action);
+    await this.driver.sleep(200);
+  } catch (error) {
+    assert.ok(false,
+      `--> Error Description: Unable to Perfomr Action the element${error}`
+    );
+  }
+}
 /* 
 -----------------------------------------------------------------
 FUCNTIONS TO CLICK ELEMENT, ENTER VALUE AND SELECT FROM DROPDOWN
@@ -306,5 +317,6 @@ module.exports = {
   clickShadowRootElement: clickShadowRootElement,
   getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement,
   clickShadowRootElementByCssSelector: clickShadowRootElementByCssSelector,
-  getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector
+  getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector,
+  performJqueryAction: performJqueryAction
 };
