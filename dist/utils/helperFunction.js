@@ -143,12 +143,14 @@ async function clickShadowRootElement(shadowHostElement, shadowRootElement){
 }
 
 async function clickShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
-  const clickOperation = 'document.querySelector(`'+shadowHostSelector+'`).shadowRoot.querySelector(`'+shadowELementSelector+'`).click();'
+  const clickOperation = 
+  'document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).click();'
   await this.driver.executeScript(clickOperation);
 }
 
 async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
-  const innerTextOperation = 'document.querySelector(`'+shadowHostSelector+'`).shadowRoot.querySelector(`'+shadowELementSelector+'`).innerText;'
+  const innerTextOperation = 
+  'document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).innerText;'
   return await this.driver.executeScript(innerTextOperation);
 }
 
