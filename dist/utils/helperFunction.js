@@ -116,6 +116,55 @@ async function findElement(element) {
   }
 }
 
+/* How to use the below shadow root Fucntion 
+https://github.com/britishgas-engineering/ya-done/wiki/How-to-Use-the-Shadow-Root-Functions
+*/
+/* 
+-----------------------------------------------------------------
+FUCNTIONS TO FIND SHADOW ELEMENT OR ELEMENTS
+-----------------------------------------------------------------
+*/
+
+/* Function to get innerText of elements inside shadow root */
+async function getInnerTextOfShadowRootElement(shadowHostElement, shadowRootElement) {
+  const shadowHost = await findElement.call(this, shadowHostElement);
+  const shadowRoot = await this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
+  const byType = await getByType(shadowRootElement.locatorType);
+  const shadowRootElementFromWeb = await shadowRoot.findElement(byType(shadowRootElement.locator));
+  return await this.driver.executeScript("return arguments[0].innerText;", shadowRootElementFromWeb);
+}
+
+async function clickShadowRootElement(shadowHostElement, shadowRootElement){
+  const shadowHost = await findElement.call(this, shadowHostElement);
+  const shadowRoot = await this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
+  const byType = await getByType(shadowRootElement.locatorType);
+  const shadowRootElementFromWeb = await shadowRoot.findElement(byType(shadowRootElement.locator));
+  await this.driver.executeScript("arguments[0].click();", shadowRootElementFromWeb);
+}
+
+async function clickShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
+  const clickOperation = 
+  'document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).click();'
+  await this.driver.executeScript(clickOperation);
+}
+
+async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
+  const innerTextOperation = 
+  'return document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).innerText;'
+  return await this.driver.executeScript(innerTextOperation);
+}
+
+/* Function to perform Jquery Action */
+async function performJqueryAction(action) {
+  try {
+    await this.driver.executeScript(action);
+    await this.driver.sleep(200);
+  } catch (error) {
+    assert.ok(false,
+      `--> Error Description: Unable to Perfomr Action the element${error}`
+    );
+  }
+}
 /* 
 -----------------------------------------------------------------
 FUCNTIONS TO CLICK ELEMENT, ENTER VALUE AND SELECT FROM DROPDOWN
@@ -264,5 +313,10 @@ module.exports = {
   waitOneSec: waitOneSec,
   isElementPresent: isElementPresent,
   dropdownSelectByVisibleText: dropdownSelectByVisibleText,
-  isElementVisible: isElementVisible
+  isElementVisible: isElementVisible,
+  clickShadowRootElement: clickShadowRootElement,
+  getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement,
+  clickShadowRootElementByCssSelector: clickShadowRootElementByCssSelector,
+  getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector,
+  performJqueryAction: performJqueryAction
 };
