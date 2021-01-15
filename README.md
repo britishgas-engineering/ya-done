@@ -3,7 +3,7 @@
 
 **Ready to use yadda BBD test framework with selenium-webdriver and chai**
 
-[![travis build passing](https://travis-ci.org/britishgas-engineering/ya-done.svg?branch=master)](https://travis-ci.org/britishgas-engineering/ya-done)
+![](https://github.com/britishgas-engineering/ya-done/workflows/Node.js%20CI/badge.svg?branch=master)
 
 ```js
 
