@@ -154,6 +154,12 @@ async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, sh
   return await this.driver.executeScript(innerTextOperation);
 }
 
+async function enterValuesForShadowRootElement(shadowHostSelector, shadowELementSelector, value){
+  const clickOperation = 
+  'document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).value='+'`'+value+'`;'
+  await this.driver.executeScript(clickOperation);
+}
+
 /* Function to perform Jquery Action */
 async function performJqueryAction(action) {
   try {
@@ -318,5 +324,6 @@ module.exports = {
   getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement,
   clickShadowRootElementByCssSelector: clickShadowRootElementByCssSelector,
   getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector,
-  performJqueryAction: performJqueryAction
+  performJqueryAction: performJqueryAction,
+  enterValuesForShadowRootElement: enterValuesForShadowRootElement
 };
