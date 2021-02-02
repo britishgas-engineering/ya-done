@@ -458,6 +458,7 @@ import { utils } from 'ya-done';
 - getInnerTextShadowRootElementByCssSelector
 - performJqueryAction
 - enterValuesForShadowRootElement
+- getLengthForShadowRootElement
 
 > To Use these functions the QA team needs to store their webElements in the below fashion, and pass in the function
 
