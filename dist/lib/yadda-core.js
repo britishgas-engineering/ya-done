@@ -45,6 +45,7 @@ function buildYadda(library, framework, featuresPath) {
       builtLibrary,
       {
         ctx: {},
+        GLOBAL: {},
         driver: buildDriver(framework),
         width: framework && framework.size ?
         framework.size.width :
@@ -72,6 +73,7 @@ function buildYadda(library, framework, featuresPath) {
       builtLibrary,
       {
         ctx: {},
+        GLOBAL: {},
         driver: buildDriver(framework),
         width: framework && framework.size ?
         framework.size.width :
