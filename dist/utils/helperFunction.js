@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 const webdriver = require('selenium-webdriver');
-const {By, until} = webdriver;
+const { By, until } = webdriver;
 
 /* To Use these functions the QA team needs to store their webElements in the below fashion,
 and pass in the function
@@ -111,8 +111,8 @@ async function findElement(element) {
   if (isElementFound) {
     const ele = await this.driver.findElement(byType(element.locator));
     return ele;
-  }else {
-    throw Error ('Element is not found, something happened after waiting for element, Please check!')
+  } else {
+    throw Error('Element is not found, something happened after waiting for element, Please check!')
   }
 }
 
@@ -134,7 +134,7 @@ async function getInnerTextOfShadowRootElement(shadowHostElement, shadowRootElem
   return await this.driver.executeScript("return arguments[0].innerText;", shadowRootElementFromWeb);
 }
 
-async function clickShadowRootElement(shadowHostElement, shadowRootElement){
+async function clickShadowRootElement(shadowHostElement, shadowRootElement) {
   const shadowHost = await findElement.call(this, shadowHostElement);
   const shadowRoot = await this.driver.executeScript("return arguments[0].shadowRoot", shadowHost);
   const byType = await getByType(shadowRootElement.locatorType);
@@ -143,17 +143,28 @@ async function clickShadowRootElement(shadowHostElement, shadowRootElement){
 }
 
 async function clickShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
-  const clickOperation = 
-  'document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).click();'
+  const clickOperation =
+    'document.querySelector(`' + shadowHostSelector.locator + '`).shadowRoot.querySelector(`' + shadowELementSelector.locator + '`).click();'
   await this.driver.executeScript(clickOperation);
 }
 
 async function getInnerTextShadowRootElementByCssSelector(shadowHostSelector, shadowELementSelector) {
-  const innerTextOperation = 
-  'return document.querySelector(`'+shadowHostSelector.locator+'`).shadowRoot.querySelector(`'+shadowELementSelector.locator+'`).innerText;'
+  const innerTextOperation =
+    'return document.querySelector(`' + shadowHostSelector.locator + '`).shadowRoot.querySelector(`' + shadowELementSelector.locator + '`).innerText;'
   return await this.driver.executeScript(innerTextOperation);
 }
 
+async function enterValuesForShadowRootElement(shadowHostSelector, shadowELementSelector, value) {
+  const enterValueOperation =
+    'document.querySelector(`' + shadowHostSelector.locator + '`).shadowRoot.querySelector(`' + shadowELementSelector.locator + '`).value=' + '`' + value + '`;'
+  await this.driver.executeScript(enterValueOperation);
+}
+
+async function getLengthForShadowRootElement(shadowHostSelector, shadowELementSelector) {
+  const getLengthOperation =
+    'return document.querySelector(`' + shadowHostSelector.locator + '`).shadowRoot.querySelector(`' + shadowELementSelector.locator + '`).length;'
+  return await this.driver.executeScript(getLengthOperation);
+}
 /* Function to perform Jquery Action */
 async function performJqueryAction(action) {
   try {
@@ -208,10 +219,10 @@ FUCNTIONS TO GET ELEMENT TEXT, ATTRIBUTE AND CURRENT URL
 
 //Function to get the Text of an element, syncing for 200ms before getting the text 
 async function getTextOfElement(element) {
-    const ele = await findElement.call(this, element);
-    await this.driver.sleep(200);
-    const elementText = await ele.getText();
-    return elementText;
+  const ele = await findElement.call(this, element);
+  await this.driver.sleep(200);
+  const elementText = await ele.getText();
+  return elementText;
 }
 
 //Function to get any attribute for any element
@@ -270,7 +281,7 @@ async function scrollInto(element) {
     await this.driver.executeScript('arguments[0].scrollIntoView(true);', ele);
     await this.driver.sleep(1000);
   } catch (error) {
-    assert.ok(false, 
+    assert.ok(false,
       `Facing error while scrolling down using Jquery, please check in console once!!`
     );
   }
@@ -296,6 +307,16 @@ async function isElementVisible(element) {
 
 }
 
+//Function to generate Numbers for specific digits
+async function generateNumbers(digit) {
+  let finalNumber;
+  do {
+    const requiredDigits = Math.pow(10, digit);
+    finalNumber = Math.floor(Math.random() * requiredDigits);
+  } while (finalNumber.toString().length !== digit)
+
+  return finalNumber;
+}
 
 module.exports = {
   getByType: getByType,
@@ -318,5 +339,8 @@ module.exports = {
   getInnerTextOfShadowRootElement: getInnerTextOfShadowRootElement,
   clickShadowRootElementByCssSelector: clickShadowRootElementByCssSelector,
   getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector,
-  performJqueryAction: performJqueryAction
+  performJqueryAction: performJqueryAction,
+  enterValuesForShadowRootElement: enterValuesForShadowRootElement,
+  getLengthForShadowRootElement: getLengthForShadowRootElement,
+  generateNumbers: generateNumbers
 };
