@@ -307,6 +307,12 @@ async function isElementVisible(element) {
 
 }
 
+//Function to generate Numbers for specific digits
+async function generateNumbers(digit){
+  const requiredDigits = Math.pow(10, digit);
+  return Math.floor(Math.random() * requiredDigits);
+}
+
 
 module.exports = {
   getByType: getByType,
@@ -331,5 +337,6 @@ module.exports = {
   getInnerTextShadowRootElementByCssSelector: getInnerTextShadowRootElementByCssSelector,
   performJqueryAction: performJqueryAction,
   enterValuesForShadowRootElement: enterValuesForShadowRootElement,
-  getLengthForShadowRootElement: getLengthForShadowRootElement
+  getLengthForShadowRootElement: getLengthForShadowRootElement,
+  generateNumbers: generateNumbers
 };

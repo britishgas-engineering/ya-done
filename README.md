@@ -459,6 +459,7 @@ import { utils } from 'ya-done';
 - performJqueryAction
 - enterValuesForShadowRootElement
 - getLengthForShadowRootElement
+- generateNumbers
 
 > To Use these functions the QA team needs to store their webElements in the below fashion, and pass in the function
 
