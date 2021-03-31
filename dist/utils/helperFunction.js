@@ -98,7 +98,7 @@ FUCNTIONS TO FIND ELEMENT OR ELEMENTS
 /* Function to find the elements based upon the locator and locatorType 
 This can be used to check whether the elements are present in a page or not by catching the length */
 async function findElements(elements) {
-  await waitForElements.call(this, elements);
+  // await waitForElements.call(this, elements);
   const byType = await getByType(elements.locatorType);
   const currentElements = await this.driver.findElements(byType(elements.locator));
   return currentElements;
