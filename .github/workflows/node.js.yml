@@ -29,6 +29,5 @@ jobs:
         key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
         restore-keys: v1-npm-deps-
     - run: npm config set registry http://registry.npmjs.org/
-    - run: npm config set spin false
     - run: npm i
     - run: npm test
